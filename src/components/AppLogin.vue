@@ -49,7 +49,7 @@
           </div>
         </div>
         <div v-if="showForm.signupButton" class="mt-4 text-center text-muted">
-          Don't have an account? <a href="#">Sign Up</a>
+          Don't have an account? <a href="mailto:pablo.e.facciano@gmail.com">Ask for one</a>
         </div>
         <div v-if="showForm.forgotPassword" class="mt-4 text-center">
           <a href="#">Forgot your password?</a>
