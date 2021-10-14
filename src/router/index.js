@@ -4,6 +4,8 @@ import AppContent from '../components/AppContent.vue'
 import AppLogin from '../components/AppLogin.vue'
 import store from '@/store/index.js';
 
+const DEFAULT_TITLE = 'AMPScript Studio';
+
 const routes = [
   {
     path: '/',
@@ -18,6 +20,7 @@ const routes = [
     name: 'login',
     component: AppLogin,
     meta: {
+      title: 'Login',
       requiresLogin: false
     }
   },
@@ -40,6 +43,13 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title + ' · ' + DEFAULT_TITLE || DEFAULT_TITLE
+  }
+  next()
 });
 
 export default router
