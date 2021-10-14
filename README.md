@@ -1,5 +1,7 @@
 # webapp
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/41a4d4c1-c73f-4c68-8e89-bfb28b0057f7/deploy-status)](https://app.netlify.com/sites/thirsty-ritchie-09d154/deploys)
+
 ## Project setup
 ```
 npm install
