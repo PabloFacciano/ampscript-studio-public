@@ -1,0 +1,2 @@
+[context.production]
+  environment = { VUE_APP_SUPABASE_URL = "https://hherwhdprqgprodftmug.supabase.co", VUE_APP_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMzk1NTEwMSwiZXhwIjoxOTQ5NTMxMTAxfQ.AmfH1tUbs5xtKLMng_MwfLFtSsDu_1oErw6dvjCreck" }
