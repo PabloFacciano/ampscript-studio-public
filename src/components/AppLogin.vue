@@ -33,13 +33,13 @@
               <div class="mb-3">Or login with</div>
               <div class="row g-2">
                 <div class="col">
-                  <button @click="loginWith('google')" type="button" class="btn btn-light d-flex align-items-center justify-content-between w-100">
+                  <button @click="loginWith('google')" type="button" class="btn btn-light d-flex align-items-center justify-content-around py-2 w-100">
                     <img width="20" class="mx-2" alt="Google sign-in" src="../assets/google-icon.webp" />
-                    <span class="mx-2">Google</span>
+                    <span class="mx-2">Login with Google</span>
                   </button>
                 </div>
-                <div class="col">
-                  <button @click="loginWith('github')" type="button" class="btn btn-light d-flex align-items-center justify-content-between w-100">
+                <div class="col d-none">
+                  <button @click="loginWith('github')" type="button" class="btn btn-light d-flex align-items-center justify-content-around py-2 w-100">
                     <img width="20" class="mx-2" alt="Github sign-in" src="../assets/github-icon.png" />
                     <span class="mx-2">Github</span>
                   </button>
