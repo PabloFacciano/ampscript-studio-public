@@ -12,7 +12,8 @@ const routes = [
     name: 'home',
     component: AppContent,
     meta: {
-      requiresLogin: true
+      title: DEFAULT_TITLE,
+      requiresLogin: true,
     }
   },
   {
@@ -20,7 +21,7 @@ const routes = [
     name: 'login',
     component: AppLogin,
     meta: {
-      title: 'Login',
+      title: 'Login · ' + DEFAULT_TITLE,
       requiresLogin: false
     }
   },
@@ -45,9 +46,9 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-router.beforeEach((to, from, next) => {
+router.afterEach((to,from,next) => {
   if (to.meta.title) {
-    document.title = to.meta.title + ' · ' + DEFAULT_TITLE || DEFAULT_TITLE
+    document.title = to.meta.title;
   }
   next()
 });
