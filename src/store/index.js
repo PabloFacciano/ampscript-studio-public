@@ -63,7 +63,10 @@ export default createStore({
       state.user = payload;
     },
     openNewTab (state, tab){
-      state.tabs.push(tab);
+      if(!state.tabs.some(t => t.id === tab.id )){
+        state.tabs.push(tab);
+      }
+      window.location.href = '/#'+tab.id;
     }
   },
   actions: {

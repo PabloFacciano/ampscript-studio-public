@@ -68,21 +68,18 @@ export default {
         })
         this.$store.commit('openNewTab',{
           type: 'code-editor',
-          name: 'Code Editor #'+this.$store.state.codeEditors.length,
-          id: uuid(),
+          name: 'Code Editor #' + this.$store.state.codeEditors.length,
+          id: 'code-editor-' + this.$store.state.codeEditors.length,
           value: this.$store.state.codeEditors.length-1
         });
 
       } else if (tab == 'settings'){
-        
-        let tabName = 'Settings';
-        if(!this.$store.state.tabs.some(t => t.name === tabName )){
-          this.$store.commit('openNewTab', {
-            type: 'settings',
-            name: 'Settings',
-            id: 'settings'
-          });
-        }
+      
+        this.$store.commit('openNewTab', {
+          type: 'settings',
+          name: 'Settings',
+          id: 'settings'
+        });
       }
     },
     openHistory(hs){

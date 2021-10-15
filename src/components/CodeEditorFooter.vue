@@ -74,15 +74,12 @@ export default {
     },
     openHistory(hs){
       let tabName = 'Run History - ' + hs.executionId;
-      if(!this.$store.state.tabs.some(t => t.name === tabName )){
-        this.$store.commit('openNewTab',{
-          type: 'history',
-          name: tabName,
-          id: hs.executionId,
-          value: hs
-        });
-      }
-      this.$router.push({ path: '/', hash: '#'+hs.executionId });
+      this.$store.commit('openNewTab',{
+        type: 'history',
+        name: tabName,
+        id: 'run-history-'+hs.executionId,
+        value: hs
+      });
     }
   },
   computed: {
