@@ -4,10 +4,18 @@
 
     <div class="container flex-fill">
       <div class="row mt-5">
-        <div class="col-12 py-3">
-          <h2>AMPScript Studio</h2>
+        <div class="col-sm-3 col-12 py-3">
+          <h4 class="py-3">Tabs</h4>
+                
+            <div v-for="(tab, i) in this.$store.state.tabs" :key="i" class="d-flex align-items-baseline">
+              {{ tab.name }}
+              <button type="button" class="btn ms-2" v-if="tab.closeable" @click="closeTab(tab.id)">&times;</button>
+            </div>
+          <hr>
+          
         </div>
-        <div class="col-6 py-3 list-group list-group-flush">
+        <div class="col-sm-6 col-12 py-3 list-group list-group-flush">
+          <h2 class="py-3">AMPScript Studio</h2>
           <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="openTab('code-editor')">
             <div class="d-flex align-items-center">
               <div class="h-100"></div>
@@ -49,17 +57,28 @@ export default {
       
     };
   },
-  computed: {
-    
-  },
   methods: {
     logout(){
       this.$store.dispatch("signOutAction");
     },
+    removeAllInstances(arr, item) {
+      for (var i = arr.length; i--;) {
+        if (arr[i] === item) arr.splice(i, 1);
+      }
+    },  
+    closeTab(id){
+      this.$store.commit('closeTab',id);
+      // window.location.href = '/#';
+      
+      this.$emit('tabsChanged');
+      console.log('changed!');
+    },
     openTab(tab){
       if (tab == 'code-editor'){
 
+        let id = uuid();
         this.$store.commit('addCodeEditor',{
+          id: id,
           currentCode: '',
           currentView: '',
           cloudpageParam: '',
@@ -68,9 +87,10 @@ export default {
         })
         this.$store.commit('openNewTab',{
           type: 'code-editor',
-          name: 'Code Editor #' + this.$store.state.codeEditors.length,
-          id: 'code-editor-' + this.$store.state.codeEditors.length,
-          value: this.$store.state.codeEditors.length-1
+          name: 'Code Editor #' + this.$store.state.tabs.length,
+          id: 'code-editor-' + id,
+          value: id,
+          closeable: true
         });
 
       } else if (tab == 'settings'){
@@ -78,21 +98,10 @@ export default {
         this.$store.commit('openNewTab', {
           type: 'settings',
           name: 'Settings',
-          id: 'settings'
+          id: 'settings',
+          closeable: true
         });
       }
-    },
-    openHistory(hs){
-      let tabName = 'Run History - ' + hs.executionId;
-      if(!this.$store.state.tabs.some(t => t.name === tabName )){
-        this.$store.commit('openNewTab',{
-          type: 'history',
-          name: tabName,
-          id: hs.executionId,
-          value: hs
-        });
-      }
-      this.$router.push({ path: '/', hash: '#'+hs.executionId });
     }
   }
 }

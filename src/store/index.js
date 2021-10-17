@@ -17,18 +17,11 @@ export default createStore({
       {
         type: 'home',
         name: 'Home',
-        id: 'home'
+        id: 'home',
+        closeable: false
       }
     ],
-    codeEditors: [
-      {
-        currentCode: '%%=Add(9,1)=%%',
-        currentView: '',
-        cloudpageParam: '?qs=1fbf7ab18b8920063bf5a0d0a465fa832acd4561863f554a',
-        runHistory: [],
-        console: []
-      }
-    ],
+    codeEditors: {},
     mcIntegration: {
       cloudpageUrl: 'https://mcpk8yjlr38c-gnlfdjh-1t51c81.pub.sfmc-content.com/ykjcnrpl0df',
       tenant: '',
@@ -57,7 +50,7 @@ export default createStore({
       state.codeEditors[value.id].runHistory = value.obj;
     },
     addCodeEditor (state, value) {
-      state.codeEditors.push(value);
+      state.codeEditors[value.id] = value;
     },
     setUser(state, payload) {
       state.user = payload;
@@ -67,6 +60,15 @@ export default createStore({
         state.tabs.push(tab);
       }
       window.location.href = '/#'+tab.id;
+    },
+    closeTab (state,id){
+      let tabIndex = state.tabs.findIndex((t) => t.id == id);
+      let tabDeleted = state.tabs.splice(tabIndex,1);
+
+      if (tabDeleted.type == 'code-editor'){
+        delete state.codeEditors[value];
+      }
+
     }
   },
   actions: {
@@ -106,5 +108,5 @@ export default createStore({
     },
   },
   modules: {},
-  plugins: [createPersistedState()]
+  plugins: []
 });
