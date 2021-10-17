@@ -73,7 +73,7 @@ export default {
       this.showPanel = (this.showPanel == name) ? 'NONE' : name;
     },
     openHistory(hs){
-      let tabName = 'Run History - ' + hs.executionId;
+      let tabName = 'Run History #' + hs.executionId.substr(0, hs.executionId.indexOf('-')) + '...';
       this.$store.commit('openNewTab',{
         type: 'history',
         name: tabName,
