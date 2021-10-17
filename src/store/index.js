@@ -63,10 +63,11 @@ export default createStore({
     },
     closeTab (state,id){
       let tabIndex = state.tabs.findIndex((t) => t.id == id);
-      let tabDeleted = state.tabs.splice(tabIndex,1);
+      let tabDeleted = state.tabs[tabIndex];
+      state.tabs.splice(tabIndex,1);
 
       if (tabDeleted.type == 'code-editor'){
-        delete state.codeEditors[value];
+        delete state.codeEditors[tabDeleted.value];
       }
 
     }
@@ -108,5 +109,5 @@ export default createStore({
     },
   },
   modules: {},
-  plugins: []
+  plugins: [createPersistedState()]
 });
