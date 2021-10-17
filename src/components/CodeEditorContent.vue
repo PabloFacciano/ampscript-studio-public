@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     runButtonDisabled: function() {
-      return (this.codeStatus == 'RUNNING') || (this.$store.state.codeSettings.livePreview == 'AUTO');
+      return (this.codeEditor.currentCode == '') || (this.codeStatus == 'RUNNING') || (this.$store.state.codeSettings.livePreview == 'AUTO');
     },
     currentCode: {
       get () {
@@ -245,10 +245,10 @@ export default {
       })
     },
     runCode(){
+      let rawCode = this.codeEditor.currentCode;
 
       let executionid = uuid();
       let url = store.state.mcIntegration.cloudpageUrl + this.codeEditor.cloudpageParam;
-      let rawCode = this.codeEditor.currentCode;
 
       this.codeEditor.console = [];
       this.writeOnConsole("Pre-processing the code.","#888")
