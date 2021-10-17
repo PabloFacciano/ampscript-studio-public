@@ -1,6 +1,7 @@
 <template>
   <div class="flex-fill d-flex flex-column">
     <tabs
+      :key="forceRender"
       :options="{ useUrlFragment: true }"
       wrapper-class="flex-fill d-flex flex-column"
       nav-class="ps-3 bg-gray-light nav nav-tabs"
@@ -10,8 +11,8 @@
       nav-item-link-disabled-class="disabled"
       panels-wrapper-class="flex-fill d-flex flex-column"
     >
-      <tab v-for="(tab, i) in this.$store.state.tabs" :key="i" :name="tab.name" :id="tab.id" panel-class="flex-fill flex-column display-flex">
-        <app-home v-if="tab.type == 'home'" />
+      <tab v-for="tab in this.$store.state.tabs" :key="tab.id" :name="tab.name" :id="tab.id" panel-class="flex-fill flex-column display-flex">
+        <app-home v-if="tab.type == 'home'" @tabsChanged="tabsReload" />
         <code-editor v-if="tab.type == 'code-editor'" :editorId="tab.value" />
         <run-history v-if="tab.type == 'history'" :history="tab.value" />
         <settings v-if="tab.type == 'settings'" />
@@ -24,7 +25,13 @@
 export default {
   data() {
     return {
+      forceRender: 0
     };
   },
+  methods: {
+    tabsReload(){
+      this.forceRender += 1;
+    }
+  }
 };
 </script>
