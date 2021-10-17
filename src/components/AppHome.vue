@@ -68,10 +68,7 @@ export default {
     },  
     closeTab(id){
       this.$store.commit('closeTab',id);
-      // window.location.href = '/#';
-      
       this.$emit('tabsChanged');
-      console.log('changed!');
     },
     openTab(tab){
       if (tab == 'code-editor'){
