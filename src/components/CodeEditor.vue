@@ -12,7 +12,7 @@ import CodeEditorContent from './CodeEditorContent.vue';
 import CodeEditorFooter from './CodeEditorFooter.vue';
 export default {
   props: {
-    editorId: Number
+    editorId: String
   },
   components: { CodeEditorHeader,CodeEditorContent, CodeEditorFooter },
    data() {

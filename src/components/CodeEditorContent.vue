@@ -44,7 +44,7 @@ import { v4 as uuid } from 'uuid';
 
 export default {
   props: {
-    editorId: Number
+    editorId: String
   },
   data() {
     return {

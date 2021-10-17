@@ -55,7 +55,7 @@
 import store from '@/store/index.js';
 export default {  
   props: {
-    editorId: Number
+    editorId: String
   },
   data() { 
     return {
@@ -78,7 +78,8 @@ export default {
         type: 'history',
         name: tabName,
         id: 'run-history-'+hs.executionId,
-        value: hs
+        value: hs,
+        closeable:true
       });
     }
   },
