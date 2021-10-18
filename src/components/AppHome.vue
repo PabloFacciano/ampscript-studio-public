@@ -76,7 +76,7 @@ export default {
         let id = uuid();
         this.$store.commit('addCodeEditor',{
           id: id,
-          currentCode: '',
+          currentCode: '%%=Add(1,3)=%%',
           currentView: '',
           cloudpageParam: '',
           runHistory: [],
