@@ -46,6 +46,9 @@ export default createStore({
     updateCodeInCodeEditor (state, value) {
       state.codeEditors[value.id].currentCode = value.obj;
     },
+    updateCloudpageparamInCodeEditor (state, value) {
+      state.codeEditors[value.id].cloudpageParam = value.obj;
+    },
     updateRunHistory (state, value) {
       state.codeEditors[value.id].runHistory = value.obj;
     },

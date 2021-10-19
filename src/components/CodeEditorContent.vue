@@ -2,8 +2,8 @@
   <div class="flex-fill d-flex flex-column">
     <div class="d-flex align-items-center ps-2">
       <div class="d-flex align-items-baseline">
-        <div class="px-2">Cloudpage URL Param: </div>
-        <button type="button" :disabled="codeStatus == 'RUNNING'" class="btn btn-link">Edit</button>
+        <div class="ps-2">Query String: </div>
+        <button @click="openModalParams" :disabled="codeStatus == 'RUNNING'" type="button" class="btn btn-link rounded-0">Edit</button>
       </div>
       <button v-if="!runButtonDisabled" @click="runCode" type="button" class="btn btn-flat mx-3 px-4 d-flex align-items-center">
         <span>Run</span>
@@ -35,21 +35,30 @@
         </div>
       </div>
     </div>
+    <transition name="modal">
+      <ModalUrlparams v-if="modalParam_show" @close="modalParam_show = false" @edit="modalParamsEdited" :value="modalParam_url" />
+    </transition>
   </div>
 </template>
 
 <script>
+import ModalUrlparams from '@/components/ModalUrlparams.vue';
 import store from '@/store/index.js';
 import { v4 as uuid } from 'uuid';
 
 export default {
+  components: {
+    ModalUrlparams
+  },
   props: {
     editorId: String
   },
   data() {
     return {
       codeStatus: 'OK',
-      tempoId: 0
+      tempoId: 0, 
+      modalParam_show: false,
+      modalParam_url: 'fff'
     };
   },
   computed: {
@@ -82,6 +91,14 @@ export default {
     }
   },
   methods: {
+    openModalParams(){
+      this.modalParam_url = this.codeEditor.cloudpageParam;
+      this.modalParam_show = true;
+    },
+    modalParamsEdited(e){
+      this.modalParam_url = e;
+      this.$store.commit('updateCloudpageparamInCodeEditor', {id: this.editorId, obj: e});
+    },
     onCodeInput(e){
       let previewMode = this.$store.state.codeSettings.livePreview;
       let timeoutTime = {
@@ -93,7 +110,7 @@ export default {
       if (previewMode == 'DISABLED'){
         return;
       } else {
-        clearInterval(this.tempoId);
+        clearTimeout(this.tempoId);
         this.tempoId = setTimeout(()=>{ this.afterHidle() }, timeoutTime[previewMode]);
       }
       
@@ -248,7 +265,7 @@ export default {
       let rawCode = this.codeEditor.currentCode;
 
       let executionid = uuid();
-      let url = store.state.mcIntegration.cloudpageUrl + this.codeEditor.cloudpageParam;
+      let url = store.state.mcIntegration.cloudpageUrl + '?' + this.codeEditor.cloudpageParam;
 
       this.codeEditor.console = [];
       this.writeOnConsole("Pre-processing the code.","#888")
