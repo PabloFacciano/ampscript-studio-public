@@ -16,5 +16,3 @@ Contains code snippets that can be used in new development.
 - This code gets the latest version of Code Executor from this repository.
 - Runs an instance of Code Executor. 
 - It is used in a CodeResource to generate an endpoint for Ampscript Studio.
-
-
