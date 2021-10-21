@@ -7,9 +7,9 @@
         <div class="col-sm-3 col-12 py-3">
           <h4 class="py-3">Tabs</h4>
                 
-            <div v-for="(tab, i) in this.$store.state.tabs" :key="i" class="d-flex align-items-baseline">
+            <div v-for="(tab, i) in this.$store.state.tabs" :key="i" class="d-flex align-items-baseline mb-2">
+              <button type="button" class="btn p-1 me-2 rounded-pill" v-if="tab.closeable" @click="closeTab(tab.id)">&times;</button>
               {{ tab.name }}
-              <button type="button" class="btn ms-2" v-if="tab.closeable" @click="closeTab(tab.id)">&times;</button>
             </div>
           <hr>
           
