@@ -265,7 +265,7 @@ export default {
       let rawCode = this.codeEditor.currentCode;
 
       let executionid = uuid();
-      let url = store.state.mcIntegration.cloudpageUrl + '?' + this.codeEditor.cloudpageParam;
+      let url = this.$store.getters.selectedWorkspace.cloudpageUrl + '?' + this.codeEditor.cloudpageParam;
 
       this.codeEditor.console = [];
       this.writeOnConsole("Pre-processing the code.","#888")
