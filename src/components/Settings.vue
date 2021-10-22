@@ -175,29 +175,29 @@
           <div class="pb-4" v-show="section == 'MARKETINGCLOUD'">
             <h5>Workspace</h5>
             <p>Indicates where the code will run.</p>
-            <select class="form-select" v-model="this.marketingcloudSettings.workspaceSelected" @input="updateCodeSettings">
-              <option v-for="w in marketingcloudSettings.workspaces" :key="w.id" :value="w.id">{{ w.name }}</option>
+            <select class="form-select" :value="selectedWorkspace.id" @change="changeWorkspace">
+              <option v-for="w in this.$store.state.workspaces" :key="w.id" :value="w.id">{{ w.name }}</option>
             </select>
             <small class="mx-2">
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>Cloudpage:</span>
-                <span>{{ selectedWorkspace.cloudpage }}</span>
+                <span class="ms-2 text-end">{{ selectedWorkspace.cloudpageUrl }}</span>
               </div>
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>Tenant:</span>
-                <span>{{ selectedWorkspace.tenant }}</span>
+                <span class="ms-2 text-end">{{ selectedWorkspace.tenant }}</span>
               </div>
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>MID:</span>
-                <span>{{ selectedWorkspace.mid }}</span>
+                <span class="ms-2 text-end">{{ selectedWorkspace.mid }}</span>
               </div>
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>Client ID:</span>
-                <span>{{ selectedWorkspace.clientid }}</span>
+                <span class="ms-2 text-end">**********</span>
               </div>
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>Client Secret:</span>
-                <span>{{ selectedWorkspace.clientsecret }}</span>
+                <span class="ms-2 text-end">**********</span>
               </div>
             </small>
             <div class="d-flex justify-content-end">
@@ -221,7 +221,7 @@
             <div class="row mb-3">
               <div class="col-4">
                 <div class="mb-2">
-                  <label for="exampleFormControlInput1" class="form-label">MID</label>
+                  <label for="exampleFormControlInput1" class="form-label">MID <span style="color:red;">*</span></label>
                   <input type="number" class="form-control" id="exampleFormControlInput1">
                 </div>
               </div>
@@ -255,37 +255,19 @@ export default {
     return {
       section: 'CODEEDITOR',
       codeSettings: this.$store.state.codeSettings,
-      marketingcloudSettings: {
-        workspaceSelected: 'ROCKET',
-        workspaces: [
-          {
-            id: 'ROCKET',
-            name: 'Rocket Espresso - Rocket',
-            cloudpage: 'https://mcpk8yjlr38c-gnlfdjh-1t51c81.pub.sfmc-content.com/ykjcnrpl0df',
-            tenant: 'mcpk8yjlr38c-gnlfdjh-1t51c81',
-            mid: 514002369,
-            clientid: 'ASDFASDFASDF',
-            clientsecret: 'ASDFASDFASDF'
-          },
-          {
-            id: 'NATURA',
-            name: 'Natura - Natura CF',
-            cloudpage: 'https://mcpk8yjlr38c-gnlfdjh-1t51c81.pub.sfmc-content.com/ykjcnrpl0df',
-            tenant: 'asdfasdf-asdf-asdfasdf',
-            mid: 1234567890,
-            clientid: 'gafsdfgasdf',
-            clientsecret: 'asfgasgasdg'
-          }
-        ]
-      }
+     
+     
     };
   },
   computed: {
-    selectedWorkspace: function(){
-      return this.marketingcloudSettings.workspaces.find(e => e.id == this.marketingcloudSettings.workspaceSelected);
+    selectedWorkspace(){
+      return this.$store.getters.selectedWorkspace;
     }
   },
   methods: {
+    changeWorkspace(e){
+      this.$store.commit('changeWorkspace', e.target.value);
+    },
     openSection(section){
       this.section = section;
     },

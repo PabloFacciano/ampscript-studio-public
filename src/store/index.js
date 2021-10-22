@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import router from '../router';
-import supabase from "../supabase";
+import router from '@/router';
+import supabase from "@/supabase";
 
 /*
 Tabs Types
@@ -12,7 +12,6 @@ Tabs Types
 
 export default createStore({
   state: {
-    user: null,
     tabs: [
       {
         type: 'home',
@@ -22,12 +21,23 @@ export default createStore({
       }
     ],
     codeEditors: {},
-    mcIntegration: {
-      cloudpageUrl: 'https://mcpk8yjlr38c-gnlfdjh-1t51c81.pub.sfmc-content.com/ykjcnrpl0df',
-      tenant: '',
-      clientId: '',
-      clientSecret: ''
-    },
+    selectedWorkspaceId: 'rocket',
+    workspaces: [
+      {
+        id: 'rocket',
+        name: 'Rocket',
+        cloudpageUrl: 'https://mcpk8yjlr38c-gnlfdjh-1t51c81.pub.sfmc-content.com/ykjcnrpl0df',
+        tenant: 'mcpk8yjlr38c-gnlfdjh-1t51c81',
+        mid: 333444
+      },
+      {
+        id: 'xappia',
+        name: 'Xappia',
+        cloudpageUrl: '1',
+        tenant: '2222',
+        mid: 111222
+      }
+    ],
     codeSettings: {
       logSelected: "LINE",
       runAs: "CLOUDPAGE",
@@ -55,9 +65,6 @@ export default createStore({
     addCodeEditor (state, value) {
       state.codeEditors[value.id] = value;
     },
-    setUser(state, payload) {
-      state.user = payload;
-    },
     openNewTab (state, tab){
       if(!state.tabs.some(t => t.id === tab.id )){
         state.tabs.push(tab);
@@ -73,6 +80,9 @@ export default createStore({
         delete state.codeEditors[tabDeleted.value];
       }
 
+    },
+    changeWorkspace(state,id){
+      state.selectedWorkspaceId = id;
     }
   },
   actions: {
@@ -89,28 +99,27 @@ export default createStore({
       try {
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
-        commit('setUser', null);
         await router.push("/login");
       } catch (error) {
         console.error(error);
       }
     },
 
-
-    async signupAction({dispatch}, form) {
-      try {
-        const { error } = await supabase.auth.signUp({
-          email: form.email,
-          password: form.password,
-        });
-        if (error) throw error;
-        alert("You've been registered successfully");
-        await dispatch("signInAction", form)
-      } catch (error) {
-          return {status: 'ERROR', message: (error.error_description || error.message)}
-      }
-    },
   },
   modules: {},
-  plugins: [createPersistedState()]
+  getters: {
+    selectedWorkspace (state) {
+      let wss = state.workspaces.filter(ws => ws.id == state.selectedWorkspaceId);
+      if (wss.length > 0){
+        wss = wss[0];
+      } else {
+        wss = null;
+      }
+      return wss;
+    },
+    user (state){
+      return supabase.auth.user();
+    }
+  },
+ // plugins: [createPersistedState()]
 });
