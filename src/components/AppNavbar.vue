@@ -6,7 +6,8 @@
       <!--button type="button" class="btn btn-link sub-button">Settings</button-->
     </div>
     <div class="m-1">
-      <select class="form-select form-select-sm" :value="selectedWorkspace.id" @change="changeWorkspace">
+      <select class="form-select form-select-sm" :value="selectedWorkspaceId" @change="changeWorkspace">
+        <option v-if="this.$store.state.workspaces.length == 0" value='none'>Add a Workspace in Settings.</option>
         <option v-for="w in this.$store.state.workspaces" :key="w.id" :value="w.id">{{ w.name }}</option>
       </select>
     </div>
@@ -16,6 +17,13 @@
 <script>
 export default {
   computed: {
+    selectedWorkspaceId(){
+      if (this.selectedWorkspace == null){
+        return 'none';
+      } else {
+        return this.selectedWorkspace.id;
+      }
+    },
     selectedWorkspace(){
       return this.$store.getters.selectedWorkspace;
     }

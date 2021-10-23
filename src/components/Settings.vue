@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-fill d-flex flex-column">
-    <div class="container flex-fill">
-      <div class="row h-100">
+  <div class="flex-fill d-flex flex-column" style="overflow:hidden;">
+    <div class="container h-100">
+      <div class="row" style="overflow:auto;">
         <div class="col-12 py-3">
           <h2>Settings</h2>
         </div>
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6 pb-3 h-100" style="overflow:auto;">
+        <div class="col-6 pb-4">
           <div class="pb-4" v-if="section == 'CODEEDITOR'">
             <h5>Log mode</h5>
             <p>Indicates how the execution logs will be generated.</p>
@@ -172,16 +172,17 @@
               </div>
             </small>
           </div>
-          <div class="pb-4" v-show="section == 'MARKETINGCLOUD'">
+          <div class="pb-4" v-show="section == 'MARKETINGCLOUD' && selectedWorkspaceId != 'none'">
             <h5>Workspace</h5>
             <p>Indicates where the code will run.</p>
-            <select class="form-select" :value="selectedWorkspace.id" @change="changeWorkspace">
+            <select class="form-select" :value="selectedWorkspaceId" @change="changeWorkspace" :disabled="creatingWorkspace">
+              <option v-if="this.$store.state.workspaces.length == 0" value='none'>Add a Workspace first.</option>
               <option v-for="w in this.$store.state.workspaces" :key="w.id" :value="w.id">{{ w.name }}</option>
             </select>
             <small class="mx-2">
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>Cloudpage:</span>
-                <span class="ms-2 text-end">{{ selectedWorkspace.cloudpageUrl }}</span>
+                <span class="ms-2 text-end">{{ selectedWorkspace.cloudpageurl }}</span>
               </div>
               <div class="d-flex justify-content-between flex-fill mb-2">
                 <span>Tenant:</span>
@@ -201,45 +202,45 @@
               </div>
             </small>
             <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-outline-danger">Delete</button>
+              <button type="button" class="btn btn-outline-danger" @click="deleteWorkspace" :disabled="creatingWorkspace">Delete</button>
             </div>
           </div>
           <div class="pb-4" v-if="section == 'MARKETINGCLOUD'">
             <h5>Create Workspace</h5>
             <div class="mb-2">
-              <label for="exampleFormControlInput1" class="form-label">Name <span style="color:red;">*</span></label>
-              <input type="text" class="form-control" id="exampleFormControlInput1">
+              <label for="Name" class="form-label">Name <span style="color:red;">*</span></label>
+              <input type="text" class="form-control" id="Name" v-model="newWorkspace.name" :disabled="creatingWorkspace">
             </div>
             <div class="mb-2">
-              <label for="exampleFormControlInput1" class="form-label">Cloudpage URL <span style="color:red;">*</span></label>
-              <input type="url" class="form-control" id="exampleFormControlInput1">
+              <label for="CloudpageURL" class="form-label">Cloudpage URL <span style="color:red;">*</span></label>
+              <input type="url" class="form-control" id="CloudpageURL" v-model="newWorkspace.cloudpageurl" :disabled="creatingWorkspace">
             </div>
             <div class="mb-2">
-              <label for="exampleFormControlInput1" class="form-label">Tenant</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1">
+              <label for="Tenant" class="form-label">Tenant</label>
+              <input type="text" class="form-control" id="Tenant" v-model="newWorkspace.tenant" :disabled="creatingWorkspace">
             </div>
             <div class="row mb-3">
               <div class="col-4">
                 <div class="mb-2">
-                  <label for="exampleFormControlInput1" class="form-label">MID <span style="color:red;">*</span></label>
-                  <input type="number" class="form-control" id="exampleFormControlInput1">
+                  <label for="MID" class="form-label">MID <span style="color:red;">*</span></label>
+                  <input type="number" class="form-control" id="MID" v-model="newWorkspace.mid" :disabled="creatingWorkspace">
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-2">
-                  <label for="exampleFormControlInput1" class="form-label">Client ID</label>
-                  <input type="text" class="form-control" id="exampleFormControlInput1">
+                  <label for="ClientID" class="form-label">Client ID</label>
+                  <input type="text" class="form-control" id="ClientID" v-model="newWorkspace.clientid" :disabled="creatingWorkspace">
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-2">
-                  <label for="exampleFormControlInput1" class="form-label">Client Secret</label>
-                  <input type="text" class="form-control" id="exampleFormControlInput1">
+                  <label for="ClientSecret" class="form-label">Client Secret</label>
+                  <input type="text" class="form-control" id="ClientSecret" v-model="newWorkspace.clientsecret" :disabled="creatingWorkspace">
                 </div>
               </div>
             </div>
             <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-outline-primary">Create</button>
+              <button type="button" class="btn btn-primary" @click="createNewWorkspace" :disabled="creatingWorkspace">Create</button>
             </div>
           </div>
         </div>
@@ -255,16 +256,83 @@ export default {
     return {
       section: 'CODEEDITOR',
       codeSettings: this.$store.state.codeSettings,
-     
-     
+      creatingWorkspace: false,
+      newWorkspace: {
+        name: '',
+        cloudpageurl: '',
+        tenant: '',
+        mid: '',
+        clientid: '',
+        clientsecret: ''
+      }     
     };
   },
   computed: {
+    selectedWorkspaceId(){
+      return this.selectedWorkspace.id;
+    },
     selectedWorkspace(){
-      return this.$store.getters.selectedWorkspace;
+      let ws = this.$store.getters.selectedWorkspace;
+      if (ws == null){
+        ws = {
+          id: 'none',
+          name: '-',
+          cloudpageurl: '-',
+          tenant: '-',
+          mid: '-',
+          clientid: '',
+          clientsecret: ''
+        };
+      }
+      return ws;
     }
   },
   methods: {
+    validateNewWorkspace(){
+
+      let ws = this.newWorkspace;
+      if (ws.name == ''){
+        alert('Workspace Name is required.');
+        return false;
+      }
+      if (ws.cloudpageurl == ''){
+        alert('Cloudpage URL is required.');
+        return false;
+      }
+      if (ws.mid == ''){
+        alert('MID is required.');
+        return false;
+      }
+
+      return true;
+    },
+    createNewWorkspace(){
+      if (!this.validateNewWorkspace()){ return; }
+      this.creatingWorkspace = true;
+      this.$store.dispatch('newWorkspace',this.newWorkspace).then(()=>{
+        this.newWorkspace = {
+          name: '',
+          cloudpageurl: '',
+          tenant: '',
+          mid: '',
+          clientid: '',
+          clientsecret: ''
+        };
+        this.$store.dispatch('loadWorkspaces');
+        this.creatingWorkspace = false;
+      });      
+    },
+    deleteWorkspace(){
+      let continuar = confirm('Are you sure?');
+      if (!continuar){ return; }
+
+      this.creatingWorkspace = true;
+      this.$store.dispatch('deleteWorkspace',this.selectedWorkspaceId).then(()=>{
+        this.$store.dispatch('loadWorkspaces');
+        this.creatingWorkspace = false;
+      });
+      
+    },
     changeWorkspace(e){
       this.$store.commit('changeWorkspace', e.target.value);
     },

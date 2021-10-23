@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     runButtonDisabled: function() {
-      return (this.codeEditor.currentCode == '') || (this.codeStatus == 'RUNNING') || (this.$store.state.codeSettings.livePreview == 'AUTO');
+      return (this.codeEditor.currentCode == '') || (this.codeStatus == 'RUNNING') || (this.$store.state.codeSettings.livePreview == 'AUTO') || (this.$store.getters.selectedWorkspace == null);
     },
     currentCode: {
       get () {

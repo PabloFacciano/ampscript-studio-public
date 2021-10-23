@@ -21,23 +21,8 @@ export default createStore({
       }
     ],
     codeEditors: {},
-    selectedWorkspaceId: 'rocket',
-    workspaces: [
-      {
-        id: 'rocket',
-        name: 'Rocket',
-        cloudpageUrl: 'https://mcpk8yjlr38c-gnlfdjh-1t51c81.pub.sfmc-content.com/ykjcnrpl0df',
-        tenant: 'mcpk8yjlr38c-gnlfdjh-1t51c81',
-        mid: 333444
-      },
-      {
-        id: 'xappia',
-        name: 'Xappia',
-        cloudpageUrl: '1',
-        tenant: '2222',
-        mid: 111222
-      }
-    ],
+    selectedWorkspaceId: '',
+    workspaces: [],
     codeSettings: {
       logSelected: "LINE",
       runAs: "CLOUDPAGE",
@@ -83,6 +68,9 @@ export default createStore({
     },
     changeWorkspace(state,id){
       state.selectedWorkspaceId = id;
+    },
+    loadWorkspaces(state,value){
+      state.workspaces = value;
     }
   },
   actions: {
@@ -104,7 +92,38 @@ export default createStore({
         console.error(error);
       }
     },
-
+    async newWorkspace({ commit }, value){
+      try {
+        let { data, error } = await supabase
+          .from('workspace')
+          .insert([ value ])
+      } catch (error) {
+        console.error({ex: error, message: (error.error_description || error.message)});
+      }
+    },
+    async deleteWorkspace({ commit }, value){
+      try {
+        let { data, error } = await supabase
+          .from('workspace')
+          .delete()
+          .eq('id', value)
+      } catch (error) {
+        console.error({ex: error, message: (error.error_description || error.message)});
+      }
+    },
+    async loadWorkspaces({ commit }){
+      try {
+        let { data: workspace, error } = await supabase
+          .from('workspace')
+          .select('*');
+        commit('loadWorkspaces',workspace);
+        if (workspace.length > 0){
+          commit('changeWorkspace', workspace[0].id);
+        }
+      } catch (error) {
+        console.error({ex: error, message: (error.error_description || error.message)});
+      }
+    },
   },
   modules: {},
   getters: {

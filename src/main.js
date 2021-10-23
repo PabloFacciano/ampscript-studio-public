@@ -19,6 +19,10 @@ import RunHistory from './components/RunHistory.vue';
 import Settings from './components/Settings.vue';
 
 /* ------------ */
+// Load workspaces on app loading
+store.dispatch('loadWorkspaces');
+
+/* ------------ */
 
 /* App */
 createApp(App)
