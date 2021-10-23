@@ -30,6 +30,13 @@
               <div class="px-3 py-3">Settings</div>
             </div>
           </button>
+          <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="openTab('help')">
+            <div class="d-flex align-items-center">
+              <div class="h-100"></div>
+              <span class="material-icons ps-3">help</span>
+              <div class="px-3 py-3">Help</div>
+            </div>
+          </button>
           <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="logout">
             <div class="d-flex align-items-center">
               <div class="h-100"></div>
@@ -98,6 +105,8 @@ export default {
           id: 'settings',
           closeable: true
         });
+      } else if (tab == 'help'){
+        window.open('https://pablofacciano.github.io/ampscript-studio-public/','_blank');
       }
     }
   }
