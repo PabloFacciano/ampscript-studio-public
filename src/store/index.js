@@ -124,6 +124,19 @@ export default createStore({
         console.error({ex: error, message: (error.error_description || error.message)});
       }
     },
+    async sendFeedback({ commit }, feedback){
+      try {
+        let { data, error } = await supabase
+          .from('userfeedback')
+          .insert([ {
+            type: feedback.feedbackType,
+            message: feedback.feedbackMessage,
+            url: window.location.href
+          } ])
+      } catch (error) {
+        console.error({ex: error, message: (error.error_description || error.message)});
+      }
+    },
   },
   modules: {},
   getters: {
