@@ -5,11 +5,15 @@
       <!--button type="button" class="btn btn-link sub-button">File</button-->
       <!--button type="button" class="btn btn-link sub-button">Settings</button-->
     </div>
-    <div class="m-1">
+    <div class="d-flex m-1" v-if="this.$store.getters.user != null">
       <select class="form-select form-select-sm" :value="selectedWorkspaceId" @change="changeWorkspace">
         <option v-if="this.$store.state.workspaces.length == 0" value='none'>Add a Workspace in Settings.</option>
         <option v-for="w in this.$store.state.workspaces" :key="w.id" :value="w.id">{{ w.name }}</option>
       </select>
+      <div class="ms-2 d-flex align-items-center bg-white rounded p-1">
+        <span class="user_name mx-2">{{ this.$store.getters.user.user_metadata.full_name }}</span>
+        <img class="user_img me-2" :src="this.$store.getters.user.user_metadata.avatar_url" />
+      </div>
     </div>
   </div>
 </template>
@@ -55,5 +59,13 @@ export default {
 }
 .sub-button:hover {
   text-decoration: underline;
+}
+.user_name {
+  white-space: nowrap;
+}
+.user_img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 </style>
