@@ -1,5 +1,3 @@
-# AMPScript Studio
-
 ## What is AMPScript Studio?
 This is a web application that communicates with Salesforce Marketing Cloud through standard and custom APIs.
 
