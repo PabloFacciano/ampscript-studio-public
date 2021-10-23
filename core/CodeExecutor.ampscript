@@ -4,6 +4,7 @@ function ampscript_studio__getCurrentDate(){
  return new Date().toLocaleString()
 }
 ampscript_studio__result.initdate = ampscript_studio__getCurrentDate();
+ampscript_studio__result.version = '0.1';
   
 Platform.Load("core","1");
 HTTPHeader.SetValue("Access-Control-Allow-Methods","GET, POST, OPTIONS");
