@@ -76,7 +76,7 @@ export default createStore({
   actions: {
     async loginWithAction({ commit }, provider) {
       try {
-        const { error, user } = await supabase.auth.signIn(provider);
+        const { error, user } = await supabase.auth.signIn(provider,{redirectTo:window.location.origin});
         if (error) throw error;
         commit('setUser', user);
       } catch (error) {
