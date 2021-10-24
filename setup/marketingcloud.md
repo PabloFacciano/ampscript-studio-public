@@ -8,25 +8,11 @@ nav_order: 1
 
 # Setup in Salesforce Marketing Cloud
 
-You have two options: 
-1. Build every component
-2. Deploy a pre-built package 
+## Build
 
-## Select version
-### Current release
-### Automatic last release
-
-## Install
-### Build your own API
-#### Code Snipset
-#### Cloudpage Code Resource
-### Package Manager
-#### Download last version
-#### Deploy
-
-## Update
-### How to with Current release
-### How to with Automatic last release
+### Data Extension
+### Code Snipset
+### Cloudpage Code Resource
 
 ## API Credentials
 
