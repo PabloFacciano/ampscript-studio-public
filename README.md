@@ -4,7 +4,8 @@
 It is a public repository where we save the code in use for the AMPScript Studio web app
 
 ## 📄 Docs
-Yep, here you have [Docs](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/Docs.md).
+Yep, here you have [the Full Docs](https://pablofacciano.github.io/ampscript-studio-public/).
+Happy reading!
 
 ## ✨ Roadmap
 Coming soon.
