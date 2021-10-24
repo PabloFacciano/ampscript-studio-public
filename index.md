@@ -5,8 +5,6 @@ nav_order: 1
 has_children: false
 ---
 
-# Get Started
-
 ## What is AMPScript Studio?
 This is a web application that communicates with Salesforce Marketing Cloud, through standard and custom APIs, to streamline tasks normally based on code, helping to reduce development and testing times.
 
