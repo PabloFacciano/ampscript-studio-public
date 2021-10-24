@@ -1,6 +1,0 @@
-%%[
-
-set @getRequest = TreatAsContent(HTTPGet("https://github-cdn.vercel.app/PabloFacciano/ampscript-studio-public/main/core/CodeExecutor.ampscript",true,0,@status))
-
-]%%
-%%=v(@getRequest)=%%
