@@ -18,7 +18,7 @@ remote_theme: pmarsceill/just-the-docs
 
 title: AMPScript Studio Docs
 description: AMPScript Studio documentation.
-baseurl: "/ampscript-studio-docs" # the subpath of your site, e.g. /blog
+baseurl: "/ampscript-studio-public" # the subpath of your site, e.g. /blog
 url: "https://pablofacciano.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 permalink: pretty
