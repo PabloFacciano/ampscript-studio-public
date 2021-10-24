@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AMPScript Studio
+title: Run History
 has_children: false
 nav_order: 4
 ---
