@@ -1,7 +1,28 @@
-## What is AMPScript Studio?
-This is a web application that communicates with Salesforce Marketing Cloud through standard and custom APIs.
+# Get Started
 
-The Code Editor allows executing AMPScript and Server-Side JavaScript (SSJS) code without being logged into the platform thanks to the use of a custom cloudpage for this process.
+## What is AMPScript Studio?
+This is a web application that communicates with Salesforce Marketing Cloud, through standard and custom APIs, to streamline tasks normally based on code, helping to reduce development and testing times.
+
+## Features
+
+### Code Editor
+
+It allows you to run AMPScript and Server-Side JavaScript (SSJS) code, ideal for quick tests or proof-of-concept scripts before using them in production.
+
+### Run History
+
+Specially designed to keep track of the executions made in the Code Editor, generating logs effortlessly to analyze and understand errors.
+
+### Did you want something else?
+
+Nice to hear from you, please send your suggestions or ideas in this form.
+
+## Roadmap and Releases
+
+💙 Coming soon.
+
+
+___________________________________________
 
 ## Costs in Salesforce Marketing Cloud
 Depending on the contracted version of Salesforce Marketing Cloud, you will have a certain number of API calls available to use. This application can use the API if the credentials are provided.
@@ -44,4 +65,24 @@ Firebase Alternative, for Auth & Database
 
 ### Others
 - [Uptime Robot](https://stats.uptimerobot.com/Dx2vYioj0D), The world's leading uptime monitoring service.
+
+## Get Started
+
+### First Installation
+
+1. In Content Builder (Salesforce Marketing Cloud), create a new Code Snipset and add the content of the [CodeExecutor.ampscript](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/core/CodeExecutor.ampscript) file.
+2. Don't forget to change the default external key to "CodeExecutor".
+3. In Web Studio > Cloudpages (Salesforce Marketing Cloud), open a collection and create a new Code Resource.
+4. The content will be: `%%=ContentBlockByKey("CodeExecutor")=%%`
+5. Copy the URL, save and publish.
+6. Open [AMPScript Studio](https://ampscript.netlify.app/).
+7. Login if necesary. Go to [Settings](https://ampscript.netlify.app/#settings) > Marketing Cloud.
+8. Add a new Workspace:
+    - Set a name
+    - Paste the URL
+9. Click Save and you are ready to try the Code Editor now!
+
+### Update Installation
+
+In case of an update of the code, you can copy the new script in the Code Snipset and that's all.
 
