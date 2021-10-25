@@ -9,7 +9,7 @@ nav_order: 2
 # Setup in AMPScript Studio
 
 ## Create Account
-If you don't have an account, you can [request a new one](../user-request).
+If you don't have an account, you can [request a new one](../../user-request).
 
 ## Workspaces
 Workspaces are used to define and choose which SFMC instance will execute the code.
