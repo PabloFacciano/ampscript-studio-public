@@ -9,12 +9,12 @@ nav_order: 1
 # Setup in Salesforce Marketing Cloud (SFMC)
 
 ## Build
-La construccion de los componentes en SFMC es realmente sencilla.
+Building the components in SFMC is really simple.
 
-En una proxima actualizacion, solo será necesario agregar las Credenciales de API para crear los demas componentes automaticamente.
+In a next update, it will only be necessary to add the API Credentials to create the other components automatically.
 
-### API Credentials
-Por el momento, este paso es opcional y se recomienda omitirlo.
+### 👉 API Credentials
+At the moment, this step is optional and it is recommended to skip it.
 
 In Setup, create an [Installed Package](https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/install-packages.html).
 
@@ -24,9 +24,9 @@ Integration Type: Server-to-Server
 
 Permissions: All
 
-### Data Extension
-Para el registro de logs se necesita crear una DataExtension.
-Esto se puede realizar en Email Studio o Contact Builder.
+### 👉 Data Extension
+To record logs you need to create a DataExtension.
+This can be done in Email Studio or Contact Builder.
 
 Name: ampscript_studio__run_history_lines
 
@@ -52,22 +52,22 @@ Fields:
 | ExecutionID | Text | 50 | Yes | No | - |
 | LineID | Text | 50 | Yes | No | - |
 
-### Code Snipset
-Crear un nuevo bloque de tipo Code Snippet.
-Esto se puede realizar en Email Studio o Content Builder.
+### 👉 Code Snipset
+Create a new block of type Code Snippet.
+This can be done in Email Studio or Content Builder.
 
 Name: AMPScriptStudio-CodeExecutor
 
 Customer Key: AMPScriptStudio-CodeExecutor
 
-En el contenido, copiar el codigo mostrado en el archivo ![CodeExecutor.ampscript](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/core/CodeExecutor.ampscript) del [repositorio](https://github.com/PabloFacciano/ampscript-studio-public).
+In the content, copy the code shown in the file [CodeExecutor.ampscript](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/core/CodeExecutor.ampscript) from the [repository](https://github.com/PabloFacciano/ampscript-studio-public).
 
-Para actualizar el codigo en una proxima actualizacion, solo debe actualizar el bloque anterior.
+To update the code in a next update, you only need to update the previous block.
 
-Si desea siempre usar la ultima version publicada pero no preocuparse por las actualizaciones, use el archivo [CodeExecutorLastRelease.ampscript](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/core/CodeExecutor.ampscript) aunque no lo recomendamos porque la velocidad de ejecucion del codigo se demora un poco más de lo normal (segun pruebas, ~20 segundos extras).
+If you want to always use the latest released version but not worry about updates, use the [CodeExecutorLastRelease.ampscript](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/core/CodeExecutor.ampscript) file although we do not recommend it because the code execution speed takes a little longer than normal (according to tests, ~ 20 extra seconds).
 
-### Cloudpage Code Resource
-Crear una nueva Cloudpage en Web Studio.
+### 👉 Cloudpage Code Resource
+Create a new Cloudpage in Web Studio.
 
 Name: AMPScriptStudio-CodeExecutor-Cloudpage
 
@@ -77,16 +77,16 @@ Layout: JSON
 
 Content: `%%=ContentBlockByKey("AMPScriptStudio-CodeExecutor")=%%`
 
-Guarde y publique la cloudpage.
-Copie la URL generada ya que la necesitará en la configuración dentro de AMPScript Studio.
+Save and publish the cloudpage.
+Copy the generated URL as you will need it in the settings within AMPScript Studio.
 
-Proteja esta url como protejeria una contraseña de acceso. No la comparta.
+Protect this url as you would protect an access password. Don't share it.
 
 ## SuperMessages and API usage
 
-La informacion siguiente corresponde al proceso de facturacion de la plataforma Salesforce Marketing Cloud.
+The following information corresponds to the billing process of the Salesforce Marketing Cloud platform.
 
-Dependiendo de la version contratada de esta plataforma, tendrá un determinado numero de llamadas API disponible para usar. Esta aplicacion puede usar la API de SFMC si son proporcionadas las credenciales.
+Depending on the contracted version of this platform, you will have a certain number of API calls available to use. This application can use the SFMC API if the credentials are provided.
 
 Additionally, another point is the cost of super messages. Each super message is used to send an email or to open a Cloudpage.
 
