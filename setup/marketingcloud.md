@@ -43,7 +43,9 @@ This can be done in Email Studio or Contact Builder.
   <dt>Period</dt>
   <dd>After 1 Day</dd>
   <dt>Fields:</dt>
-  <dd>
+  <dd>(see below)</dd>
+</dl>
+
 | Name | Data Type | Length | Nullable | Primary Key | Default Value |
 |:---|:---|:---|:---|:---|:---|
 | Code | Text | 300 | Yes | No | - |
@@ -53,9 +55,6 @@ This can be done in Email Studio or Contact Builder.
 | RunDateOnClient | Text | 50 | Yes | No | - |
 | ExecutionID | Text | 50 | Yes | No | - |
 | LineID | Text | 50 | Yes | No | - |
-  </dd>
-</dl>
-
 
 ### 👉 Code Snipset
 Create a new block of type Code Snippet.
@@ -85,9 +84,7 @@ Create a new Cloudpage in Web Studio.
   <dt>Layout</dt>
   <dd>JSON</dd>
   <dt>Content</dt>
-  <dd>
-  `%%=ContentBlockByKey("AMPScriptStudio-CodeExecutor")=%%`
-  </dd>
+  <dd>%%=ContentBlockByKey("AMPScriptStudio-CodeExecutor")=%%</dd>
 </dl>
 
 Save and publish the cloudpage.
