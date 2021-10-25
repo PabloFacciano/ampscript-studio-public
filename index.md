@@ -30,7 +30,7 @@ Specially designed to keep track of the executions made in the Code Editor, gene
 
 ### 👉 Did you want something else?
 
-Nice to hear from you, please send your suggestions or ideas in this form.
+Nice to hear from you, please send your suggestions or ideas in a [new issue](https://github.com/PabloFacciano/ampscript-studio-public/issues/new).
 
 ## Roadmap and Releases
 
