@@ -28,6 +28,8 @@ The execution of AMPScript or ServerSide Javascript (SSJS) must be done in SFMC.
 
 This application uses the last option to execute the code remotely, using the result of a cloudpage as if it were an API. Email preview is planned for a new version of this app.
 
+Remember, SSJS is EcmaScript3. Source: [Salesforce](https://developer.salesforce.com/docs/atlas.en-us.noversion.mc-programmatic-content.meta/mc-programmatic-content/ssjs_syntaxGuide.htm).
+
 ## Worspaces
 
 As it says in [Setup > AMPScript Studio](../../setup/ampscriptstudio#workspaces):
