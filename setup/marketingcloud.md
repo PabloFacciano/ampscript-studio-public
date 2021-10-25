@@ -20,28 +20,30 @@ In Setup, create an [Installed Package](https://developer.salesforce.com/docs/ma
 
 Then, add an [API Integration](https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/create-integration-enhanced.html).
 
-Integration Type: Server-to-Server
-
-Permissions: All
+<dl>
+  <dt>Integration Type</dt>
+  <dd>Server-to-Server</dd>
+  <dt>Permissions</dt>
+  <dd>All</dd>
+</dl>
 
 ### 👉 Data Extension
 To record logs you need to create a DataExtension.
 This can be done in Email Studio or Contact Builder.
 
-Name: ampscript_studio__run_history_lines
-
-External Key: ampscript_studio__run_history_lines
-
-Used for sending: No
-
-Data Retention Policy: ON
-
-Delete: Individual Records
-
-Period: After 1 Day
-
-Fields:
-
+<dl>
+  <dt>Name</dt>
+  <dd>ampscript_studio__run_history_lines</dd>
+  <dt>External Key</dt>
+  <dd>ampscript_studio__run_history_lines</dd>
+  <dt>Used for sending</dt>
+  <dd>No</dd>
+  <dt>Data Retention Policy</dt>
+  <dd>Delete: Individual Records</dd>
+  <dt>Period</dt>
+  <dd>After 1 Day</dd>
+  <dt>Fields:</dt>
+  <dd>
 | Name | Data Type | Length | Nullable | Primary Key | Default Value |
 |:---|:---|:---|:---|:---|:---|
 | Code | Text | 300 | Yes | No | - |
@@ -51,14 +53,20 @@ Fields:
 | RunDateOnClient | Text | 50 | Yes | No | - |
 | ExecutionID | Text | 50 | Yes | No | - |
 | LineID | Text | 50 | Yes | No | - |
+  </dd>
+</dl>
+
 
 ### 👉 Code Snipset
 Create a new block of type Code Snippet.
 This can be done in Email Studio or Content Builder.
 
-Name: AMPScriptStudio-CodeExecutor
-
-Customer Key: AMPScriptStudio-CodeExecutor
+<dl>
+  <dt>Name</dt>
+  <dd>AMPScriptStudio-CodeExecutor</dd>
+  <dt>Customer Key</dt>
+  <dd>AMPScriptStudio-CodeExecutor</dd>
+</dl>
 
 In the content, copy the code shown in the file [CodeExecutor.ampscript](https://github.com/PabloFacciano/ampscript-studio-public/blob/main/core/CodeExecutor.ampscript) from the [repository](https://github.com/PabloFacciano/ampscript-studio-public).
 
@@ -69,13 +77,18 @@ If you want to always use the latest released version but not worry about update
 ### 👉 Cloudpage Code Resource
 Create a new Cloudpage in Web Studio.
 
-Name: AMPScriptStudio-CodeExecutor-Cloudpage
-
-Type: Code Resource
-
-Layout: JSON
-
-Content: `%%=ContentBlockByKey("AMPScriptStudio-CodeExecutor")=%%`
+<dl>
+  <dt>Name</dt>
+  <dd>AMPScriptStudio-CodeExecutor-Cloudpage</dd>
+  <dt>Type</dt>
+  <dd>Code Resource</dd>
+  <dt>Layout</dt>
+  <dd>JSON</dd>
+  <dt>Content</dt>
+  <dd>
+  `%%=ContentBlockByKey("AMPScriptStudio-CodeExecutor")=%%`
+  </dd>
+</dl>
 
 Save and publish the cloudpage.
 Copy the generated URL as you will need it in the settings within AMPScript Studio.
