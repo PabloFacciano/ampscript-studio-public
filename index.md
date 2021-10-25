@@ -24,9 +24,9 @@ Specially designed to keep track of the executions made in the Code Editor, gene
 
 Nice to hear from you, please send your suggestions or ideas in this form.
 
-## 💙 Roadmap and Releases
+## Roadmap and Releases
 
-Coming soon.
+💙 Coming soon.
 
 
 ___________________________________________
