@@ -8,6 +8,8 @@ has_children: false
 ## What is AMPScript Studio?
 This is a web application that communicates with Salesforce Marketing Cloud, through standard and custom APIs, to streamline tasks normally based on code, helping to reduce development and testing times.
 
+![AMPScript Studio Home](https://i.ibb.co/PmBYSRY/image.png)
+
 ## Features
 
 ### Code Editor
@@ -52,24 +54,6 @@ This application uses the last option to execute the code remotely, using the re
 [Source: Salesforce Help](https://help.salesforce.com/s/articleView?id=sf.mc_overview_data_usage.htm&type=5#:~:text=Currently%2C%20Code%20Resources%20are%20not%20considered%20or%20counted%20as%20CloudPages%20impressions.)
 
 For correct operation and to avoid additional costs, the cloudpage must be of type Code Resource.
-
-## Technology Stack
-
-### Front End
-- [HTML](https://developer.mozilla.org/es/docs/Web/HTML), [CSS](https://developer.mozilla.org/es/docs/Web/CSS), [Javascript](https://developer.mozilla.org/es/docs/Web/JavaScript)
-- [Vue 3](https://v3.vuejs.org/), The Progressive
-JavaScript Framework
-- [Vuex 4](https://next.vuex.vuejs.org/), state management pattern + library for Vue.js applications
-- [Vue Router 4](https://next.router.vuejs.org/), The official router for Vue.js.
-
-### Back End / Infra
-- [Supabase](https://supabase.io/), The Open Source
-Firebase Alternative, for Auth & Database
-- [Netlify](https://www.netlify.com/), Build, deploy,
-& scale modern web projects, for hosting
-
-### Others
-- [Uptime Robot](https://stats.uptimerobot.com/Dx2vYioj0D), The world's leading uptime monitoring service.
 
 ## Get Started
 
