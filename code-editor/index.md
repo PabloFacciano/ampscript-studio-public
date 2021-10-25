@@ -14,9 +14,9 @@ It allows you to execute AMPScript or SSJS code, as well as HTML and CSS as if i
 
 ## Use cases
 
-✅ Quick code tests
-✅ Proof of concept of a solution
-✅ Checking the operation of the code
+- ✅ Quick code tests
+- ✅ Proof of concept of a solution
+- ✅ Checking the operation of the code
 
 ## Behind the scenes
 
@@ -31,7 +31,7 @@ This application uses the last option to execute the code remotely, using the re
 ## Worspaces
 
 As it says in [Setup > AMPScript Studio](../../setup/ampscriptstudio#workspaces):
-> Workspaces are used to define and choose which SFMC instance will execute the code. This allows a faster switch between environments.
+> *Workspaces are used to define and choose which SFMC instance will execute the code. This allows a faster switch between environments.*
 
 To change the Workspace where the code is executed, you must select an existing one in the upper right corner, next to the user.
 The following executions of the code will use the chosen environment.
