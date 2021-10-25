@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Salesforce Marketing Cloud · Setup
+title: Salesforce Marketing Cloud
 parent: Setup
 has_children: false
 nav_order: 1
@@ -39,10 +39,10 @@ This can be done in Email Studio or Contact Builder.
   <dt>Used for sending</dt>
   <dd>No</dd>
   <dt>Data Retention Policy</dt>
-  <dd>Delete: Individual Records</dd>
+  <dd>Individual Records</dd>
   <dt>Period</dt>
   <dd>After 1 Day</dd>
-  <dt>Fields:</dt>
+  <dt>Fields</dt>
   <dd>(see below)</dd>
 </dl>
 
