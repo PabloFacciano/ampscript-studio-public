@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AMPScript Studio
+title: AMPScript Studio · Setup
 parent: Setup
 has_children: false
 nav_order: 2

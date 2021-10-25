@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Settings
+title: Settings · Code Editor
 parent: Code Editor
 nav_order: 1
 has_children: false
