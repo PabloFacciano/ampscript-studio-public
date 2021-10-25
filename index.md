@@ -36,24 +36,12 @@ Nice to hear from you, please send your suggestions or ideas in this form.
 
 💙 Coming soon.
 
+---
 
-___________________________________________
+## About the project
 
-## How this app works
+AMPScript Studio and AMPScript Studio Docs is &copy; 2021-{{ "now" | date: "%Y" }} by [Pablo Facciano](https://github.com/PabloFacciano).
 
-The execution of AMPScript or ServerSide Javascript must be done in SFMC. For this there are several ways:
+### License
 
-- Run a Script Activity in Automation Studio.
-- Send or preview an Email.
-- Open a published Cloudpage.
-
-This application uses the last option to execute the code remotely, using the result of a cloudpage as if it were an API. Email preview is planned for a new version of this application.
-
-### First Installation
-
-6. Open [AMPScript Studio](https://ampscript.netlify.app/).
-7. Login if necesary. Go to [Settings](https://ampscript.netlify.app/#settings) > Marketing Cloud.
-8. Add a new Workspace:
-    - Set a name
-    - Paste the URL
-9. Click Save and you are ready to try the Code Editor now!
+AMPScript Studio Docs is distributed by an [MIT license](https://github.com/pmarsceill/just-the-docs/tree/master/LICENSE.txt).
