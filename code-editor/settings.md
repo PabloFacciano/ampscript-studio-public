@@ -47,15 +47,15 @@ This is the addition to the url of the cloudpage, after the `?`.
 
 For example, `qs=RWFzdGVyRWdnSW5BTVBTY3JpcHRTdHVkaW9Eb2Nz&customParam=123` is a valid value.
 
-The url where the page opens would be like this: `https:yourWorkspaceCloudpage.com?qs=RWFzdGVyRWdnSW5BTVBTY3JpcHRTdHVkaW9Eb2Nz&customParam=123`.
+The url where the page opens would be like this: `https://yourWorkspaceCloudpage.com?qs=RWFzdGVyRWdnSW5BTVBTY3JpcHRTdHVkaW9Eb2Nz&customParam=123`.
 
 This allows you to use functions like [RequestParameter()](https://developer.salesforce.com/docs/atlas.en-us.noversion.mc-programmatic-content.meta/mc-programmatic-content/requestparameter.htm) within your code.
 
 ## Live Preview
 
-This functionality serves to execute the code automatically.  
-It can be turned on or off in [Settings > Code Editor](https://ampscript.netlify.app/#home).  
-The default value, and the recommended one is `Only HTML`.
+This functionality serves to execute the code automatically.
+It can be turned on or off in [Settings > Code Editor](https://ampscript.netlify.app/#home).
+The default value and the recommended one is `Only HTML`.
 
 <dl>
   <dt>Disabled</dt>
