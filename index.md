@@ -9,14 +9,14 @@ has_children: false
 ## Streamlining code-based tasks
 {: .fs-9 }
 
-### AMPScript Studio is a web application that communicates with Salesforce Marketing Cloud, through standard and custom APIs, to streamline tasks normally based on code, helping to reduce development and testing times.
+### **AMPScript Studio** is a web application that communicates with Salesforce Marketing Cloud, through standard and custom APIs, to streamline tasks normally based on code, **helping to reduce development and testing times**.
 {: .fs-6 .fw-300 }
 
 [Open AMPScript Studio](https://ampscript.netlify.app/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/PabloFacciano/ampscript-studio-public){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
-![AMPScript Studio Home](https://i.ibb.co/PmBYSRY/image.png)
+![AMPScript Studio Home](https://i.ibb.co/txvKkmN/asdf.png)
 
 ## Features
 
