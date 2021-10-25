@@ -8,5 +8,4 @@ has_children: true
 # Setup
 The setup of the application is simple. Here are the concrete actions to implement.
 
-1. Salesforce Marketing Cloud
-2. AMPScript Studio
+These steps should be followed only once for each SFMC Business Unit. For more users to use this implementation, use the [AMPScript Studio Workspaces](./ampscriptstudio#workspaces).
