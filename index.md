@@ -12,21 +12,21 @@ This is a web application that communicates with Salesforce Marketing Cloud, thr
 
 ## Features
 
-### Code Editor
+### 💻 Code Editor
 
 It allows you to run AMPScript and Server-Side JavaScript (SSJS) code, ideal for quick tests or proof-of-concept scripts before using them in production.
 
-### Run History
+### 📄 Run History
 
 Specially designed to keep track of the executions made in the Code Editor, generating logs effortlessly to analyze and understand errors.
 
-### Did you want something else?
+### 👉 Did you want something else?
 
 Nice to hear from you, please send your suggestions or ideas in this form.
 
-## Roadmap and Releases
+## 💙 Roadmap and Releases
 
-💙 Coming soon.
+Coming soon.
 
 
 ___________________________________________
