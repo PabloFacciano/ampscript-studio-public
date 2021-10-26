@@ -12,6 +12,8 @@ nav_order: 4
 It allows to analyze the execution of the code written in the Code Editor.
 To see all the details, open the execution detail by clicking on the link in the lower panel.
 
+![Run History in Code Editor](https://i.ibb.co/zHyFQWW/image.png)
+
 ## Use cases
 
 - ✅ Review of execution logs
@@ -44,12 +46,10 @@ There is no recommended type, feel free to try the one that best suits your code
 
 ### Custom
 - Allows you to choose which sections will generate execution logs.
-- Use `{{log.start}}` and `{{log.stop}}` (on a blank line) to define the sections.
+- Use `\{\{log.start\}\}` and `\{\{log.stop\}\}` (on a blank line) to define the sections.
 
 ## View Modes
 Each execution is independent. Therefore the original code, the logs and the result are saved independently.
-
-![Run History in Code Editor](https://i.ibb.co/zHyFQWW/image.png)
 
 ### Original
 This is the view of the original code that was written in the Code Editor.
