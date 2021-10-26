@@ -10,6 +10,7 @@ nav_order: 4
 ## What is Run History?
 
 It allows to analyze the execution of the code written in the Code Editor.
+To see all the details, open the execution detail by clicking on the link in the lower panel.
 
 ## Use cases
 
@@ -48,17 +49,29 @@ There is no recommended type, feel free to try the one that best suits your code
 ## View Modes
 Each execution is independent. Therefore the original code, the logs and the result are saved independently.
 
+![Run History in Code Editor](https://i.ibb.co/zHyFQWW/image.png)
+
 ### Original
 This is the view of the original code that was written in the Code Editor.
+
+![View Mode: Original](https://i.ibb.co/XybgqN8/image.png)
 
 ### Pre-Compiled
 This is the pre-compiled code. It has the added code for the execution logs to be saved.
 
+![View Mode: Pre-Compiled](https://i.ibb.co/RCQFwFx/image.png)
+
 ### Lines Executed
 This is the view of lines of code executed in chronological order. The first line was the first to run and so on.
+
+![View Mode: Lines Executed](https://i.ibb.co/PG308Nn/image.png)
 
 ### Code Coverage
 This is a mix between the original view and the executed lines view. In green are the lines that were executed at least once. The structure of the code is the same as the original code.
 
+![View Mode: Code Coverage](https://i.ibb.co/1zrHsVP/image.png)
+
 ### Result
 This is the result of the code. Rendered code is presented in an IFrame for the final view if it is html.
+
+![View Mode: Result](https://i.ibb.co/mFV9yQW/image.png)

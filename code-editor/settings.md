@@ -8,6 +8,8 @@ has_children: false
 
 # Settings
 
+![Settings in AMPScript Studio](https://i.ibb.co/QkfbcF3/image.png)
+
 ## Run As
 
 When the AMPScript or SSJS is run in SFMC, there is something called *[Execution Context](https://help.salesforce.com/s/articleView?id=sf.mc_es_available_personalization_strings.htm&type=5)*.
@@ -50,6 +52,8 @@ For example, `qs=RWFzdGVyRWdnSW5BTVBTY3JpcHRTdHVkaW9Eb2Nz&customParam=123` is a 
 The url where the page opens would be like this: `https://yourWorkspaceCloudpage.com?qs=RWFzdGVyRWdnSW5BTVBTY3JpcHRTdHVkaW9Eb2Nz&customParam=123`.
 
 This allows you to use functions like [RequestParameter()](https://developer.salesforce.com/docs/atlas.en-us.noversion.mc-programmatic-content.meta/mc-programmatic-content/requestparameter.htm) within your code.
+
+![Edit Query Param](https://i.ibb.co/n7QmWtx/image.png)
 
 ## Live Preview
 

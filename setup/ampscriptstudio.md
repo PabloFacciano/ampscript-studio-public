@@ -32,3 +32,5 @@ To create a new Workspace, enter [Settings > Marketing Cloud](https://ampscript.
   <dt>Client Secret</dt>
   <dd>API access credentials.</dd>
 </dl>
+
+![Workspace in AMPScript Studio](https://i.ibb.co/T0dDFTk/image.png)
