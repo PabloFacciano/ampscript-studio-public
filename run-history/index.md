@@ -46,7 +46,7 @@ There is no recommended type, feel free to try the one that best suits your code
 
 ### Custom
 - Allows you to choose which sections will generate execution logs.
-- Use `\{\{log.start\}\}` and `\{\{log.stop\}\}` (on a blank line) to define the sections.
+- Use `\{{log.start}}` and `\{{log.stop}}` (on a blank line) to define the sections.
 
 ## View Modes
 Each execution is independent. Therefore the original code, the logs and the result are saved independently.
