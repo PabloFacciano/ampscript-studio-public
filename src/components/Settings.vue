@@ -216,6 +216,10 @@
               <input type="url" class="form-control" id="CloudpageURL" v-model="newWorkspace.cloudpageurl" :disabled="creatingWorkspace">
             </div>
             <div class="mb-2">
+              <label for="CloudpageToken" class="form-label">Cloudpage Token <span style="color:red;">*</span></label>
+              <input type="text" class="form-control" id="CloudpageToken" v-model="newWorkspace.cloudpagetoken" :disabled="creatingWorkspace">
+            </div>
+            <div class="mb-2">
               <label for="Tenant" class="form-label">Tenant</label>
               <input type="text" class="form-control" id="Tenant" v-model="newWorkspace.tenant" :disabled="creatingWorkspace">
             </div>
@@ -260,6 +264,7 @@ export default {
       newWorkspace: {
         name: '',
         cloudpageurl: '',
+        cloudpagetoken: '',
         tenant: '',
         mid: '',
         clientid: '',
@@ -278,6 +283,7 @@ export default {
           id: 'none',
           name: '-',
           cloudpageurl: '-',
+          cloudpagetoken: '-',
           tenant: '-',
           mid: '-',
           clientid: '',
@@ -299,6 +305,10 @@ export default {
         alert('Cloudpage URL is required.');
         return false;
       }
+      if (ws.cloudpagetoken == ''){
+        alert('Cloudpage Token is required.');
+        return false;
+      }
       if (ws.mid == ''){
         alert('MID is required.');
         return false;
@@ -313,6 +323,7 @@ export default {
         this.newWorkspace = {
           name: '',
           cloudpageurl: '',
+          cloudpagetoken: '',
           tenant: '',
           mid: '',
           clientid: '',
