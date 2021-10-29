@@ -129,7 +129,7 @@ export default {
       
       if (ampscriptOpen == false && ssjsOpen == false){ line += "%%[" };
       if (ampscriptOpen == true  && ssjsOpen == false){ /* ampscript */ };
-      if (ampscriptOpen == false && ssjsOpen == true ){ line += 'ampscript_studio__ampscript("' };
+      if (ampscriptOpen == false && ssjsOpen == true ){ line += 'ampscriptStudio.runAmpscript("' };
       // if (ampscriptOpen == true  && ssjsOpen == true ){ /* wtf */ }; // Never executed
       
       line += " InsertData(";
@@ -137,7 +137,7 @@ export default {
       line += "'Code','" + code.replace("'", "\\'") + "',";
       line += "'LineNumber','" + lineNumber + "',";
       line += "'RealLineNumber','" + realLineNumber + "',";
-      line += "'RunDateOnClient','" + new Date().toLocaleString() + "',";
+      line += "'RunDateOnClient','" + this.getCurrentDate() + "',";
       line += "'RunDateOnServer',NOW(),";
       line += "'ExecutionID','" + executionid + "',";
       line += "'LineID','" + id + "'";
@@ -285,8 +285,11 @@ export default {
 
       let cmp = this;
       let postData = {
+        action: 'run-code',
+        executionId: executionid,
         code: codeWithLogs.processedcode,
-        executionId: executionid
+        timming: true,
+        logs: store.state.codeSettings.logSelected == 'NONE' ? false : true
       }
       this.beforeRun();
       this.executeCode(url,postData)
@@ -330,7 +333,7 @@ export default {
       return html;
     },
     handleSuccessResult(json){
-      if (json.httpcode == 200){
+      if (json.status == 'ok'){
         this.codeEditor.currentView = json.result;
         this.writeOnConsole("No errors found.","#00731f")
       } else {
@@ -365,8 +368,8 @@ export default {
       if (obj === false){
         hayError = true;
       } else {
-        hs.httpcode = obj.httpcode;
-        if (obj.httpcode != 200){
+        hs.httpcode = obj.status;
+        if (obj.status != 'ok'){
           hs.error = obj.error;
           hayError = true;          
         } else {
@@ -376,11 +379,11 @@ export default {
       hs.status = hayError ? 'ERROR' : 'OK';
       hs.result = hayError ? null : obj.result;
       hs.logs = obj.logs ?? null;
-      hs.serverInitDate = obj.initdate ?? 'Unkown';
-      hs.serverStartDate = obj.startdate ?? 'Unkown';
-      hs.serverEndDate = obj.enddate ?? 'Unkown';
+      hs.serverInitDate = obj.timming.find(e => { return e.id === 'Code Start' }).date ?? 'Unkown';
+      hs.serverStartDate = hs.serverInitDate;
+      hs.serverEndDate = obj.timming.find(e => { return e.id === 'Code End' }).date ?? 'Unkown';
       hs.serverDuration = Math.round( this.getDifferenceInSeconds(hs.serverInitDate, hs.serverEndDate) * 100) / 100 ?? 'Unkown';
-      hs.serverPercent = ((hs.serverDuration * 100) / hs.duration);
+      hs.serverPercent = Math.round(((hs.serverDuration * 100) / hs.duration)) / 100;
       hs.clientPercent = (100 - hs.serverPercent) ?? 50;
 
       this.addRunHistory(hs);
