@@ -253,7 +253,8 @@ export default {
         method: 'POST',
         headers: {
           'Accept': '*/*',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-API-Key': this.$store.getters.selectedWorkspace.cloudpagetoken
         },
         body: JSON.stringify(data)
       }).then(response => {
@@ -379,9 +380,10 @@ export default {
       hs.status = hayError ? 'ERROR' : 'OK';
       hs.result = hayError ? null : obj.result;
       hs.logs = obj.logs ?? null;
-      hs.serverInitDate = obj.timming.find(e => { return e.id === 'Code Start' }).date ?? 'Unkown';
+
+      hs.serverInitDate = obj.timming?.find(e => { return e.id === 'Code Start' })?.date;
       hs.serverStartDate = hs.serverInitDate;
-      hs.serverEndDate = obj.timming.find(e => { return e.id === 'Code End' }).date ?? 'Unkown';
+      hs.serverEndDate = obj.timming?.find(e => { return e.id === 'Code End' })?.date;
       hs.serverDuration = Math.round( this.getDifferenceInSeconds(hs.serverInitDate, hs.serverEndDate) * 100) / 100 ?? 'Unkown';
       hs.serverPercent = Math.round(((hs.serverDuration * 100) / hs.duration)) / 100;
       hs.clientPercent = (100 - hs.serverPercent) ?? 50;
