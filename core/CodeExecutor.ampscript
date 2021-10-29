@@ -10,6 +10,7 @@ var ampscriptStudio = {
     timming: []
   },
   input: {},
+  continuar: true,
   getPostData: function(){
     var json = Platform.Request.GetPostData();
     this.input = Platform.Function.ParseJSON(json);
@@ -38,7 +39,7 @@ var ampscriptStudio = {
   setHeaders: function(){
     HTTPHeader.SetValue("Access-Control-Allow-Methods","GET, POST, OPTIONS");
     HTTPHeader.SetValue("Access-Control-Allow-Origin","*");
-    HTTPHeader.SetValue("Access-Control-Allow-Headers","Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    HTTPHeader.SetValue("Access-Control-Allow-Headers","Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, x-api-key");
     // HTTPHeader.SetValue("Server-Timing",'db;dur=123;desc="Database", tmpl;dur=56;desc="Template processing"');
   },
   runCodeEditor: function(){
@@ -55,10 +56,16 @@ var ampscriptStudio = {
     }
   },
   doAuth: function(){
-    /*
     var authToken = Platform.Request.GetRequestHeader('X-API-Key');
-    var auth = Platform.Function.LookupRows(this.config.logsDE,'ExecutionID',this.input.executionId)
-    */
+    var rows = Platform.Function.LookupRows(this.config.authDE,'Token',authToken);
+    this.continuar = rows.length > 0;
+    if (this.continuar == false){
+      this.output.error = {
+        message: 'Unauthorized cloudpage token.',
+        description: 'Check with your system administrator for a valid token.'
+      };
+      this.status = 'error';
+    }
   }
 }
 
@@ -66,8 +73,10 @@ var ampscriptStudio = {
 Platform.Load("core","1");
 ampscriptStudio.setHeaders();
 ampscriptStudio.doAuth();
-ampscriptStudio.getPostData(); 
-ampscriptStudio.runCodeEditor();
+if (ampscriptStudio.continuar){
+  ampscriptStudio.getPostData(); 
+  ampscriptStudio.runCodeEditor();
+}
 ampscriptStudio.writeOutput();
 
 /*
