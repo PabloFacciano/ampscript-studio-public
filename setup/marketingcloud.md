@@ -27,8 +27,32 @@ Then, add an [API Integration](https://developer.salesforce.com/docs/marketing/m
   <dd>All</dd>
 </dl>
 
-### 👉 Data Extension
-To record logs you need to create a DataExtension.
+### 👉 Data Extension: Auth
+To keep the cloudpage safe, a table is used with the tokens available to use by the app.
+This table can be created in Email Studio or Contact Builder.
+
+<dl>
+  <dt>Name</dt>
+  <dd>ampscript_studio__auth</dd>
+  <dt>External Key</dt>
+  <dd>ampscript_studio__auth</dd>
+  <dt>Used for sending</dt>
+  <dd>No</dd>
+  <dt>Data Retention Policy</dt>
+  <dd>Individual Records</dd>
+  <dt>Period</dt>
+  <dd>After 6 Months</dd>
+  <dt>Fields</dt>
+  <dd>(see below)</dd>
+</dl>
+
+| Name | Data Type | Length | Nullable | Primary Key | Default Value |
+|:---|:---|:---|:---|:---|:---|
+| Token | Text | 200 | No | Yes | - |
+| CreatedAt | Date | - | No | No | Current system date |
+
+### 👉 Data Extension: Logs
+To record the code logs you need to create a DataExtension.
 This can be done in Email Studio or Contact Builder.
 
 <dl>
