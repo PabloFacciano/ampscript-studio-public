@@ -149,7 +149,7 @@ export default {
             Code: line.code,
             Type: 'NONE'
           };
-          if(this.history.logs.some(e => (e.LineID === line.id))){
+          if(this.history.logs?.some(e => (e.LineID === line.id))){
             codeToAdd.Type = 'COVERED';
           }
           codeToReturn.push(codeToAdd);
