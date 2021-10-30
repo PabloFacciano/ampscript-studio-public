@@ -1,53 +1,27 @@
 <template>
   <div class="flex-fill d-flex flex-column">
 
-
     <div class="container flex-fill">
-      <div class="row mt-5">
-        <div class="col-sm-3 col-12 py-3">
-          <h4 class="py-3">Tabs</h4>
-                
-            <div v-for="(tab, i) in this.$store.state.tabs" :key="i" class="d-flex align-items-baseline mb-2">
-              <button type="button" class="btn p-1 me-2 rounded-pill" v-if="tab.closeable" @click="closeTab(tab.id)">&times;</button>
-              {{ tab.name }}
-            </div>
+      <div class="row px-3 pt-3">
+        <div class="col-lg-4 col-md-6 col-12">
+          <h2 class="pt-3 pb-2">AMPScript Studio</h2>
           <hr>
-          
-        </div>
-        <div class="col-sm-6 col-12 py-3 list-group list-group-flush">
-          <h2 class="py-3">AMPScript Studio</h2>
-          <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="openTab('code-editor')">
+          <button v-for="tab in this.tabs" :key="tab.tabtype" class="list-group-item list-group-item-action bg-gray rounded border-0 p-0 mb-2" @click="openTab(tab.tabtype)">
             <div class="d-flex align-items-center">
               <div class="h-100"></div>
-              <span class="material-icons ps-3">description</span>
-              <div class="px-3 py-3">New Code Editor</div>
+              <span class="material-icons ps-3">{{ tab.icon }}</span>
+              <div class="px-3 py-3">{{ tab.text }}</div>
             </div>
           </button>
-          <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="openTab('settings')">
-            <div class="d-flex align-items-center">
-              <div class="h-100"></div>
-              <span class="material-icons ps-3">settings</span>
-              <div class="px-3 py-3">Settings</div>
-            </div>
-          </button>
-          <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="openTab('help')">
-            <div class="d-flex align-items-center">
-              <div class="h-100"></div>
-              <span class="material-icons ps-3">help</span>
-              <div class="px-3 py-3">Help</div>
-            </div>
-          </button>
-          <button class="list-group-item list-group-item-action border-0 p-0 mb-2" @click="logout">
-            <div class="d-flex align-items-center">
-              <div class="h-100"></div>
-              <span class="material-icons ps-3">logout</span>
-              <div class="px-3 py-3">Log out</div>
-            </div>
-          </button>
-          <small class="text-muted ps-3">
-            <hr>
+          <div class="text-muted pt-3">
+            <small>
             Developed with ❤ by Pablo Facciano.<br>Copyright 2021. All rights reserved.
-          </small>
+            </small>
+          </div>
+        </div>
+        <div class="col-md col-12">
+          <h2 class="pt-3 pb-2">News</h2>
+          <hr>
         </div>
       </div>
     </div>
@@ -56,6 +30,7 @@
 </template>
 
 <script>
+import shared from '@/shared.js'
 import { v4 as uuid } from 'uuid';
 
 export default {
@@ -63,6 +38,11 @@ export default {
     return {
       
     };
+  },
+  computed: {
+    tabs: function(){
+      return shared.home.tabButtons;
+    }
   },
   methods: {
     logout(){
@@ -74,39 +54,16 @@ export default {
       }
     },  
     closeTab(id){
-      this.$store.commit('closeTab',id);
+      shared.tab.closeTab(id);
       this.$emit('tabsChanged');
     },
     openTab(tab){
       if (tab == 'code-editor'){
-
-        let id = uuid();
-        this.$store.commit('addCodeEditor',{
-          id: id,
-          currentCode: '%%=Add(1,3)=%%',
-          currentView: '',
-          cloudpageParam: '',
-          runHistory: [],
-          console: []
-        })
-        this.$store.commit('openNewTab',{
-          type: 'code-editor',
-          name: 'Code Editor #' + this.$store.state.tabs.length,
-          id: 'code-editor-' + id,
-          value: id,
-          closeable: true
-        });
-
+        shared.tab.openNewCodeEditor();
       } else if (tab == 'settings'){
-      
-        this.$store.commit('openNewTab', {
-          type: 'settings',
-          name: 'Settings',
-          id: 'settings',
-          closeable: true
-        });
+        shared.tab.openSettings();
       } else if (tab == 'help'){
-        window.open('https://pablofacciano.github.io/ampscript-studio-public/','_blank');
+        shared.tab.openExternal('https://pablofacciano.github.io/ampscript-studio-public/');
       }
     }
   }
