@@ -57,10 +57,13 @@ export default createStore({
       window.location.href = '/#'+tab.id;
     },
     closeTab (state,id){
-      let tabIndex = state.tabs.findIndex((t) => t.id == id);
+      let tabIndex = state.tabs.findIndex((t) => t.id == id || t.name == id);
       let tabDeleted = state.tabs[tabIndex];
+      if (tabDeleted == null || tabDeleted.closeable == false){
+        return;
+      }
+      
       state.tabs.splice(tabIndex,1);
-
       if (tabDeleted.type == 'code-editor'){
         delete state.codeEditors[tabDeleted.value];
       }

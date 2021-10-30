@@ -1,8 +1,19 @@
 <template>
   <div class="py-0 bg-gray-light d-flex justify-content-between align-items-baseline">
-    <div>
-      <b class="px-3 py-2 sub-button">AMPScript Studio</b>
-      <!--button type="button" class="btn btn-link sub-button">File</button-->
+    <div class="d-flex align-items-center">
+      <span class="ps-3"><b>AMPScript Studio</b></span>
+      <span class="ps-3 dropdown">
+        <button type="button" class="btn btn-link sub-button" data-bs-toggle="dropdown">New Tab</button>
+        <ul class="dropdown-menu">
+          <li v-for="tab in tabs" :key="tab.tabtype" @click="openTab(tab.tabtype)">
+            <button class="dropdown-item d-flex align-items-center">
+              <span class="px-2">{{ tab.text }}</span>
+            </button>
+          </li>
+        </ul>
+      </span>
+      <button type="button" class="btn btn-link sub-button" @click="closeCurrentTab">Close Tab</button>
+     
       <!--button type="button" class="btn btn-link sub-button">Settings</button-->
     </div>
     <div class="d-flex m-1" v-if="this.$store.getters.user != null">
@@ -23,9 +34,14 @@
 </template>
 
 <script>
+import shared from '@/shared.js';
 import ModalFeedback from "@/components/ModalFeedback.vue";
+
 export default {
   computed: {
+    tabs(){
+      return shared.home.tabButtons;
+    },
     selectedWorkspaceId(){
       if (this.selectedWorkspace == null){
         return 'none';
@@ -38,6 +54,18 @@ export default {
     }
   },
   methods: {
+    closeCurrentTab(){
+      shared.tab.closeTab(window.location.hash.substring(1));
+    },
+    openTab(tab){
+      if (tab == 'code-editor'){
+        shared.tab.openNewCodeEditor();
+      } else if (tab == 'settings'){
+        shared.tab.openSettings();
+      } else if (tab == 'help'){
+        shared.tab.openExternal('https://pablofacciano.github.io/ampscript-studio-public/');
+      }
+    },
     changeWorkspace(e){
       this.$store.commit('changeWorkspace', e.target.value);
     },
