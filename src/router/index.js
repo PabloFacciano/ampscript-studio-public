@@ -8,6 +8,15 @@ const DEFAULT_TITLE = 'AMPScript Studio';
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: AppLogin,
+    meta: {
+      title: 'Login · ' + DEFAULT_TITLE,
+      requiresLogin: false,
+    }
+  },
+  {
     path: '/',
     name: 'home',
     component: AppContent,
@@ -15,16 +24,7 @@ const routes = [
       title: DEFAULT_TITLE,
       requiresLogin: true,
     }
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: AppLogin,
-    meta: {
-      title: 'Login · ' + DEFAULT_TITLE,
-      requiresLogin: false
-    }
-  },
+  }
 ]
 
 const router = createRouter({
@@ -35,7 +35,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // get current user info
   
-  const currentUser = supabase.auth.user();
+  const currentUser = store.state.user;
   const requiresLogin = to.matched.some
   (record => record.meta.requiresLogin);
 
@@ -44,6 +44,8 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+  
+  next();
 });
 
 router.afterEach((to,from,next) => {
