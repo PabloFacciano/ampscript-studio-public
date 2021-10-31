@@ -1,5 +1,5 @@
 // App
-import { createApp } from 'vue'
+import { createApp, defineAsyncComponent } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -14,15 +14,7 @@ import "bootstrap"
 
 // Components
 import {Tabs, Tab} from 'vue3-tabs-component';
-import CodeEditor from './components/CodeEditor.vue';
-import RunHistory from './components/RunHistory.vue';
-import Settings from './components/Settings.vue';
 
-/* ------------ */
-// Load workspaces on app loading
-store.dispatch('loadWorkspaces');
-
-/* ------------ */
 
 /* App */
 createApp(App)
@@ -36,7 +28,7 @@ createApp(App)
 /* Components */
 .component('tabs', Tabs)
 .component('tab', Tab)
-.component('code-editor', CodeEditor)
-.component('run-history', RunHistory)
-.component('settings', Settings)
+.component('code-editor', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/CodeEditor.vue') ))
+.component('run-history', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/RunHistory.vue') ))
+.component('settings', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/Settings.vue') ))
 .mount('#app')
