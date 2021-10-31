@@ -2,7 +2,6 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import router from '@/router';
 import supabase from "@/supabase";
-import { setSourceMapRange } from "typescript";
 
 /*
 Tabs Types
