@@ -34,7 +34,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // get current user info
-  
+  /*
   const currentUser = store.state.user;
   const requiresLogin = to.matched.some
   (record => record.meta.requiresLogin);
@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-  
+  */
   next();
 });
 
