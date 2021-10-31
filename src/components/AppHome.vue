@@ -5,14 +5,31 @@
       <div class="row px-3 pt-3">
         <div class="col-lg-4 col-md-6 col-12">
           <h2 class="pt-3 pb-2">AMPScript Studio</h2>
-          <hr>
-          <button v-for="tab in this.tabs" :key="tab.tabtype" class="list-group-item list-group-item-action bg-gray rounded border-0 p-0 mb-2" @click="openTab(tab.tabtype)">
-            <div class="d-flex align-items-center">
-              <div class="h-100"></div>
-              <span class="material-icons ps-3">{{ tab.icon }}</span>
-              <div class="px-3 py-3">{{ tab.text }}</div>
+          <div v-if="user == null" class="py-2">
+            <div v-if="showVerifyingUser" class="d-flex align-items-center">
+              <div class="spinner-border text-primary me-3" role="status"></div>
+              <div>Checking user data...</div>
             </div>
-          </button>
+            <div v-if="showVerifyingUser == false" >
+              <router-link  to="login" class="list-group-item list-group-item-action bg-primary text-light rounded border-0 p-0 mb-2">
+                <div class="d-flex align-items-center">
+                  <div class="h-100"></div>
+                  <span class="material-icons ps-3">login</span>
+                  <div class="px-3 py-3">Login</div>
+                </div>
+              </router-link>
+            </div>
+            <hr>
+          </div>
+          <div v-if="user != null">
+            <button v-for="tab in this.tabs" :key="tab.tabtype" class="list-group-item list-group-item-action bg-gray rounded border-0 p-0 mb-2" @click="openTab(tab.tabtype)">
+              <div class="d-flex align-items-center">
+                <div class="h-100"></div>
+                <span class="material-icons ps-3">{{ tab.icon }}</span>
+                <div class="px-3 py-3">{{ tab.text }}</div>
+              </div>
+            </button>
+          </div>
           <div class="text-muted pt-3">
             <small>
             Developed with ❤ by Pablo Facciano.<br>Copyright 2021. All rights reserved.
@@ -36,10 +53,18 @@ import shared from '@/shared.js'
 export default {
   data() {
     return {
-      
+      showVerifyingUser: true
     };
   },
+  mounted(){
+    setTimeout(()=>{
+      this.showVerifyingUser = false;
+    },3000);
+  },
   computed: {
+    user: function(){
+      return this.$store.state.user;
+    },
     tabs: function(){
       return shared.home.tabButtons;
     }
