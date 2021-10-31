@@ -31,7 +31,7 @@
 
 <script>
 import shared from '@/shared.js'
-import { v4 as uuid } from 'uuid';
+//import { v4 as uuid } from 'uuid';
 
 export default {
   data() {
