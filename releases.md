@@ -13,11 +13,8 @@ This is where the news of new versions of the application are published.
 
 You can subscribe to updates in [this form](https://forms.gle/U2yqb6ZbuTN52GCs9).
 
-## 0.4
-### Coming soon
-
 ## 0.3
-### 03-10-2021 (next release)
+### 05-10-2021 (next release)
 - Home screen redesign.
 - Some UI improvements and bug fixes.
 - Introduction of new bugs to fix later.
