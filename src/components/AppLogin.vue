@@ -85,14 +85,10 @@ export default {
       loginChecker: null
     };
   },
-  created() {
-    this.loginChecker = setInterval(() => {
-      const currentUser = supabase.auth.user();
-      if(currentUser !== null){
-        clearInterval(this.loginChecker);
-        this.$router.push("/");
-      }
-    },100);
+  mounted() {
+    if(this.$store.state.user !== null){
+      this.$router.push("/");
+    }
   },
   computed: {
     

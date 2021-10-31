@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import router from '@/router';
 import supabase from "@/supabase";
+import { setSourceMapRange } from "typescript";
 
 /*
 Tabs Types
@@ -12,6 +13,7 @@ Tabs Types
 
 export default createStore({
   state: {
+    user: null,
     tabs: [
       {
         type: 'home',
@@ -74,6 +76,9 @@ export default createStore({
     },
     loadWorkspaces(state,value){
       state.workspaces = value;
+    },
+    setUser(state,usr){
+      state.user = usr;
     }
   },
   actions: {
@@ -81,7 +86,6 @@ export default createStore({
       try {
         const { error, user } = await supabase.auth.signIn(provider,{redirectTo:window.location.origin});
         if (error) throw error;
-        commit('setUser', user);
       } catch (error) {
         return {status: 'ERROR', message: (error.error_description || error.message)}
       }   
@@ -152,8 +156,8 @@ export default createStore({
       }
       return wss;
     },
-    user (state){
-      return supabase.auth.user();
+    userIsOk (state){
+      return state.user != null;
     }
   },
  // plugins: [createPersistedState()]
