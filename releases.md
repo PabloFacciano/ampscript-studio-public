@@ -1,6 +1,6 @@
 ---
 layout: default
-title: User Request
+title: Releases
 has_children: false
 nav_order: 9998
 ---

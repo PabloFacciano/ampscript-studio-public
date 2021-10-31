@@ -32,6 +32,10 @@ Specially designed to keep track of the executions made in the Code Editor, gene
 
 Nice to hear from you, please send your suggestions or ideas in a [new issue](https://github.com/PabloFacciano/ampscript-studio-public/issues/new).
 
+Since 10/29/2021, this application has public access enabled. Note that it is still in the ALPHA phase.
+
+You can subscribe to updates in [this form](https://forms.gle/U2yqb6ZbuTN52GCs9).
+
 ## Roadmap and Releases
 
 💙 Coming soon.
