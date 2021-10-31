@@ -2,9 +2,9 @@
   <div class="flex-fill d-flex flex-column">
 
     <div class="container flex-fill">
-      <div class="row px-3 pt-3">
+      <div class="row px-3 pt-5">
         <div class="col-lg-4 col-md-6 col-12">
-          <h2 class="pt-3 pb-2">AMPScript Studio</h2>
+          <h2 class="pt-3 pb-2 d-none d-md-block">AMPScript Studio</h2>
           <div v-if="user == null" class="py-2">
             <div v-if="showVerifyingUser" class="d-flex align-items-center">
               <div class="spinner-border text-primary me-3" role="status"></div>
@@ -36,7 +36,7 @@
             </small>
           </div>
         </div>
-        <div class="col-md col-12">
+        <div class="col-md col-12" v-if="false">
           <h2 class="pt-3 pb-2">News</h2>
           <hr>
         </div>
