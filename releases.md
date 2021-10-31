@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Releases
+title: Release Notes
 has_children: false
 nav_order: 9998
 ---
