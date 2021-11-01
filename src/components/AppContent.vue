@@ -14,6 +14,7 @@
       <tab v-for="tab in tabs" :key="tab.id" :name="tab.name" :id="tab.id" panel-class="flex-fill flex-column display-flex">
         <app-home v-if="tab.type == 'home'" />
         <code-editor v-if="tab.type == 'code-editor'" :editorId="tab.value" />
+        <salesforce-data v-if="tab.type == 'salesforce-data'" />
         <run-history v-if="tab.type == 'history'" :history="tab.value" />
         <settings v-if="tab.type == 'settings'" />
       </tab>

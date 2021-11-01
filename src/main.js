@@ -22,6 +22,7 @@ createApp(App)
 /* Components */
 .component('tabs', Tabs)
 .component('tab', Tab)
+.component('salesforce-data', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/SalesforceData.vue') ))
 .component('code-editor', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/CodeEditor.vue') ))
 .component('run-history', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/RunHistory.vue') ))
 .component('settings', defineAsyncComponent( () => import(/* webpackPrefetch: true */ '@/components/Settings.vue') ))
