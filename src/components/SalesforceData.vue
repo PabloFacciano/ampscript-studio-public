@@ -10,10 +10,10 @@
 
             <div class="btn-group mb-3" role="group">
               <label class="btn btn-outline-secondary px-4" :class="{active: operation == 'SELECT'}">
-                Select <input type="radio" class="btn-check" name="btnOperation" value="SELECT" v-model="operation">
+                Select <input type="radio" class="btn-check" name="btnOperation" value="SELECT" v-model="operation" @change="updateAlerts">
               </label>
               <label class="btn btn-outline-secondary px-4" :class="{active: operation == 'INSERT'}">
-                Insert <input type="radio" class="btn-check" name="btnOperation" value="INSERT" v-model="operation">
+                Insert <input type="radio" class="btn-check" name="btnOperation" value="INSERT" v-model="operation" @change="updateAlerts">
               </label>
             </div>
 
@@ -21,7 +21,7 @@
               <h5>Object:</h5>
               
               <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="CustomObject__c" v-model="object">
+                <input type="text" class="form-control" placeholder="CustomObject__c" v-model.trim="object" @input="updateAlerts">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="#">Action</a></li>
@@ -41,22 +41,22 @@
                 </small>
               </div>
               <div v-for="cond in this.fields" :key="cond.id" class="input-group mb-2">
-                <input :value="cond.name" type="text" class="form-control" placeholder="Field API Name">
+                <input @input="changeField(cond.id,'name',$event.target.value)" :value="cond.name" type="text" class="form-control" placeholder="Field API Name">
                 <div class="dropdown">
                   <button class="btn btn-secondary rounded-0" type="button" data-bs-toggle="dropdown">
                     {{ this.operation == 'SELECT' ? cond.operator : '=' }}
                   </button>
                   <ul v-show="this.operation == 'SELECT'" class="dropdown-menu dropdown-menu-dark">
-                    <li @click="changeFieldOperator(cond.id,'No filter')"><a class="dropdown-item" :class="{ active: cond.operator == 'No filter' }" href="#">No filter</a></li>
-                    <li @click="changeFieldOperator(cond.id,'=')"><a class="dropdown-item" :class="{ active: cond.operator == '=' }" href="#"><span class="pe-3">=</span> Equals to</a></li>
-                    <li @click="changeFieldOperator(cond.id,'!=')"><a class="dropdown-item" :class="{ active: cond.operator == '!=' }" href="#"><span class="pe-3">!=</span> Not equals to</a></li>
-                    <li @click="changeFieldOperator(cond.id,'<')"><a class="dropdown-item" :class="{ active: cond.operator == '<' }" href="#"><span class="pe-3">&lt;</span> Less than</a></li>
-                    <li @click="changeFieldOperator(cond.id,'>')"><a class="dropdown-item" :class="{ active: cond.operator == '>' }" href="#"><span class="pe-3">&gt;</span> Greather than</a></li>
-                    <li @click="changeFieldOperator(cond.id,'<=')"><a class="dropdown-item" :class="{ active: cond.operator == '<=' }" href="#"><span class="pe-3">&lt;=</span> Less than or equals to</a></li>
-                    <li @click="changeFieldOperator(cond.id,'>=')"><a class="dropdown-item" :class="{ active: cond.operator == '>=' }" href="#"><span class="pe-3">&gt;=</span> Greather than or equals to</a></li>
+                    <li @click="changeField(cond.id,'operator','No filter')"><a class="dropdown-item" :class="{ active: cond.operator == 'No filter' }" href="#">No filter</a></li>
+                    <li @click="changeField(cond.id,'operator','=')"><a class="dropdown-item" :class="{ active: cond.operator == '=' }" href="#"><span class="pe-3">=</span> Equals to</a></li>
+                    <li @click="changeField(cond.id,'operator','!=')"><a class="dropdown-item" :class="{ active: cond.operator == '!=' }" href="#"><span class="pe-3">!=</span> Not equals to</a></li>
+                    <li @click="changeField(cond.id,'operator','<')"><a class="dropdown-item" :class="{ active: cond.operator == '<' }" href="#"><span class="pe-3">&lt;</span> Less than</a></li>
+                    <li @click="changeField(cond.id,'operator','>')"><a class="dropdown-item" :class="{ active: cond.operator == '>' }" href="#"><span class="pe-3">&gt;</span> Greather than</a></li>
+                    <li @click="changeField(cond.id,'operator','<=')"><a class="dropdown-item" :class="{ active: cond.operator == '<=' }" href="#"><span class="pe-3">&lt;=</span> Less than or equals to</a></li>
+                    <li @click="changeField(cond.id,'operator','>=')"><a class="dropdown-item" :class="{ active: cond.operator == '>=' }" href="#"><span class="pe-3">&gt;=</span> Greather than or equals to</a></li>
                   </ul>
                 </div>
-                <input :disabled="this.operation == 'SELECT' && cond.operator == 'No filter'" type="text" class="form-control" placeholder="">
+                <input @input="changeField(cond.id,'value',$event.target.value)" :disabled="this.operation == 'SELECT' && cond.operator == 'No filter'" type="text" class="form-control" placeholder="">
                 <button @click="removeField(cond.id)" type="button" class="btn btn-danger">X</button>
               </div>
               <div class="d-flex justify-content-end">
@@ -67,11 +67,11 @@
             <div class="mb-3">
               <div class="mb-3">
                 <div class="d-flex mb-2" v-for="alert in this.alerts" :key="alert.id">
-                  <span class="material-icons me-2" style="color:red;">{{ alert.icon }}</span>
+                  <span class="material-icons me-2" style="color:gray;">error</span>
                   <span>{{ alert.text }}</span>
                 </div>
               </div>
-              <button class="btn btn-primary w-100">Run</button>
+              <button :disabled="this.alerts.length > 0" class="btn btn-primary w-100">Run</button>
             </div>
 
           </div>
@@ -98,57 +98,88 @@ export default {
   },
   data() {
     return {
-      alerts: [
-        {
-          id: uuid(),
-          icon: 'warning',
-          text: 'ID cannot be empty.'
-        },
-        {
-          id: uuid(),
-          icon: 'error',
-          text: 'ID cannot be empty.'
-        }
-      ],
+      alerts: [],
       operation: 'SELECT',
       object: '',
-      fields: [
-        {
-          id: uuid(),
-          name: 'ID',
-          operator: 'No filter',
-          value: ''
-        },
-        {
-          id: uuid(),
-          name: 'Field__c',
-          operator: '=',
-          value: '1234'
-        },
-        {
-          id: uuid(),
-          name: 'Field2__c',
-          operator: '<',
-          value: '5'
-        }
-      ]
+      fields: []
     };
   },
+  mounted(){
+    this.updateAlerts();
+  },
   methods: {
-    updateWarnings(){
+    updateAlerts(){
+      let newAlerts = [];
 
+      // Object name missing
+      if (this.object == '') {
+        newAlerts.push({
+          id: uuid(),
+          text: 'The object name is missing.'
+        })
+      }
+      // Field or condition without name
+      if (this.fields.some(e => e.name.trim() === '')) {
+        newAlerts.push({
+          id: uuid(),
+          text: 'There is a field with no name. Add one or remove the field.'
+        })
+      }
+      if (this.operation == 'SELECT'){
+        // ID Field missing
+        if (!this.fields.some(e => e.name.toLowerCase() == 'id' )) {
+          newAlerts.push({
+            id: uuid(),
+            text: 'The "ID" field needs to be added.'
+          })
+        }
+        // Some filter is missing
+        if (!this.fields.some(e => e.operator != 'No filter')) {
+          newAlerts.push({
+            id: uuid(),
+            text: 'There is no filter, you must create one.'
+          })
+        }
+        // Field condition without value
+        if (this.fields.some(e => e.operator != 'No filter' && e.value == '' )) {
+          newAlerts.push({
+            id: uuid(),
+            text: 'There is a field with no value. Add one or remove the filter.'
+          })
+        }
+      }
+      if (this.operation == 'INSERT'){
+        //  
+        if (this.fields.length == 0) {
+          newAlerts.push({
+            id: uuid(),
+            text: 'It is necessary to add some field.'
+          })
+        }
+        // Field condition without value
+        if (this.fields.some(e => e.value == '' )) {
+          newAlerts.push({
+            id: uuid(),
+            text: 'There is a field with no value. Add one or remove the filter.'
+          })
+        }
+      }
+
+      this.alerts = newAlerts;
     },
-    changeFieldOperator(id, newOperator){
+    changeField(id, field, value){
 
       let objIndex = this.fields.findIndex((obj => obj.id == id));
-      this.fields[objIndex].operator = newOperator;
+      this.fields[objIndex][field] = value;
 
       this.fields.splice(objIndex, 1, this.fields[objIndex]);
+      this.updateAlerts();
     },
     removeField(id){
       this.fields = this.fields.filter(function(obj) {
         return obj.id !== id;
       });
+      this.updateAlerts();
     },
     addField(){
       this.fields.push({
@@ -157,6 +188,7 @@ export default {
         operator: '=',
         value: ''
       });
+      this.updateAlerts();
     }
   },
   computed: {
