@@ -135,16 +135,15 @@ export default {
     };
   },
   methods: {
+    updateWarnings(){
+
+    },
     changeFieldOperator(id, newOperator){
 
-   //  let fields = this.fields; 
-
       let objIndex = this.fields.findIndex((obj => obj.id == id));
-     // let obj2 = this.fields[objIndex];
       this.fields[objIndex].operator = newOperator;
 
       this.fields.splice(objIndex, 1, this.fields[objIndex]);
-
     },
     removeField(id){
       this.fields = this.fields.filter(function(obj) {
