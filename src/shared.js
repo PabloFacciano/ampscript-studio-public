@@ -10,6 +10,11 @@ export default {
         text: 'Code Editor'
       },
       {
+        tabtype: 'salesforce-data',
+        icon: 'cloud',
+        text: 'Salesforce Data'
+      },
+      {
         tabtype: 'settings',
         icon: 'settings',
         text: 'Settings'
@@ -22,6 +27,17 @@ export default {
     ]
   },
   tab: {
+    openTab: function(id){
+      if (id == 'code-editor'){
+        this.openNewCodeEditor();
+      } else if (id == 'settings'){
+        this.openSettings();
+      } else if (id == 'salesforce-data'){
+        this.openNewSalesforceData();
+      } else if (id == 'help'){
+        this.openExternal('https://pablofacciano.github.io/ampscript-studio-public/');
+      }
+    },
     closeTab: function(id){
       store.commit('closeTab',id);
     },
@@ -46,6 +62,15 @@ export default {
         closeable: true
       });
   
+    },
+    openNewSalesforceData: function(){
+      let id = uuid();
+      store.commit('openNewTab',{
+        type: 'salesforce-data',
+        name: 'Salesforce #' + store.state.tabs.length,
+        id: 'salesforce-data-' + id,
+        closeable: true
+      });
     },
     openSettings(){
       store.commit('openNewTab', {

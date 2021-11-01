@@ -13,7 +13,7 @@
             </li>
           </ul>
         </span>
-        <button type="button" class="btn btn-link sub-button" @click="closeCurrentTab">Close Tab</button>
+        <button type="button" class="btn btn-link sub-button" @click="closeCurrentTab">Close this Tab</button>
       </div>
     </div>
     <div class="d-flex m-1" v-if="this.user != null">
@@ -73,13 +73,7 @@ export default {
       shared.tab.closeTab(window.location.hash.substring(1));
     },
     openTab(tab){
-      if (tab == 'code-editor'){
-        shared.tab.openNewCodeEditor();
-      } else if (tab == 'settings'){
-        shared.tab.openSettings();
-      } else if (tab == 'help'){
-        shared.tab.openExternal('https://pablofacciano.github.io/ampscript-studio-public/');
-      }
+      shared.tab.openTab(tab);
     },
     changeWorkspace(e){
       this.$store.commit('changeWorkspace', e.target.value);

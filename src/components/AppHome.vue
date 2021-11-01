@@ -77,19 +77,9 @@ export default {
       for (var i = arr.length; i--;) {
         if (arr[i] === item) arr.splice(i, 1);
       }
-    },  
-    closeTab(id){
-      shared.tab.closeTab(id);
-      this.$emit('tabsChanged');
     },
     openTab(tab){
-      if (tab == 'code-editor'){
-        shared.tab.openNewCodeEditor();
-      } else if (tab == 'settings'){
-        shared.tab.openSettings();
-      } else if (tab == 'help'){
-        shared.tab.openExternal('https://pablofacciano.github.io/ampscript-studio-public/');
-      }
+      shared.tab.openTab(tab);
     }
   }
 }
