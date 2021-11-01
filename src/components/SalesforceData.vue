@@ -22,13 +22,9 @@
               
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="CustomObject__c" v-model.trim="object" @input="updateAlerts">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"></button>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <button v-if="false" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"></button>
+                <ul v-if="false" class="dropdown-menu dropdown-menu-end w-100">
                   <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
                 </ul>
               </div>
             </div>
