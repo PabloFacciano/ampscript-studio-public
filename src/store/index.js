@@ -25,7 +25,7 @@ export default createStore({
     selectedWorkspaceId: '',
     workspaces: [],
     codeSettings: {
-      logSelected: "LINE",
+      logSelected: "NONE",
       runAs: "CLOUDPAGE",
       livePreview: "HTML",
       autoSave: "DISABLED",
