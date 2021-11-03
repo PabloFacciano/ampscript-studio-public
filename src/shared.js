@@ -80,5 +80,23 @@ export default {
         closeable: true
       });
     }
+  },
+  code: {
+    executeCode(data){
+      let workspace = store.getters.selectedWorkspace;
+
+      return fetch(workspace.cloudpageurl, {
+        method: 'POST',
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'X-API-Key': workspace.cloudpagetoken
+        },
+        body: JSON.stringify(data)
+      }).then(response => {
+        if (!response.ok) throw Error(response);
+        return response.json();
+      });
+    },
   }
 }

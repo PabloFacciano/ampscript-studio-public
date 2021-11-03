@@ -52,7 +52,7 @@
                     <li @click="changeField(cond.id,'operator','>=')"><a class="dropdown-item" :class="{ active: cond.operator == '>=' }" href="#"><span class="pe-3">&gt;=</span> Greather than or equals to</a></li>
                   </ul>
                 </div>
-                <input @input="changeField(cond.id,'value',$event.target.value)" :disabled="this.operation == 'SELECT' && cond.operator == 'No filter'" type="text" class="form-control" placeholder="">
+                <input @input="changeField(cond.id,'value',$event.target.value)" :value="cond.value" :disabled="this.operation == 'SELECT' && cond.operator == 'No filter'" type="text" class="form-control" placeholder="">
                 <button @click="removeField(cond.id)" type="button" class="btn btn-danger">X</button>
               </div>
               <div class="d-flex justify-content-end">
@@ -67,17 +67,49 @@
                   <span>{{ alert.text }}</span>
                 </div>
               </div>
-              <button :disabled="this.alerts.length > 0" class="btn btn-primary w-100">Run</button>
+              <button @click="runCode" :disabled="this.alerts.length > 0 || this.loading" class="btn btn-primary w-100">
+                <div v-if="this.loading" class="d-flex align-items-center">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  <span>Running</span>
+                </div>
+                <div v-if="!this.loading">Run</div>
+              </button>
             </div>
+
+            <div class="mb-3 bg-gray card-body card" style="white-space: pre-wrap;">{{ this.getAmpscript }}</div>
 
           </div>
         </div>
-        <div class="col-8" style="overflow:auto;">
-
-          <div>
-            <div class="w-100 h-100 p-1 h1">Hey!</div>
+        <div class="col-8 p-3" style="overflow:auto;">
+          <div class="card table-responsive">
+            <table v-if="this.result.length > 0" class="table mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th v-for="(cell,cellIndex) in this.fields" :key="cellIndex">{{ cell.name }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(row, rowIndex) in this.result" :key="rowIndex">
+                  <th scope="row">{{ rowIndex+1 }}</th>
+                  <td v-for="(cell,cellIndex) in row" :key="cellIndex" class="text-nowrap">{{ cell }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-if="this.result.length == 0 && this.error == null && this.loading == false" class="text-center card-body">Nothing to see here.</div>
+            <div v-if="this.error != null" class="card-body text-wrap">
+              <h3>😥 Error</h3>
+              <p>{{ this.error.message }}</p>
+              <hr>
+              <p style="white-space: pre-line;">{{ this.error.description }}</p>
+            </div>
+            <div v-if="this.loading">
+              <div class="d-flex align-items-center m-3">
+                <div class="spinner-border text-primary me-3" role="status"></div>
+                <div>Loading...</div>
+              </div>
+            </div>
           </div>
-        
         </div>
       </div>
     </div>
@@ -86,8 +118,8 @@
 </template>
 
 <script>
-import { Vue } from 'vue'
 import { v4 as uuid } from 'uuid';
+import shared from '@/shared.js'
 export default {
   props: {
 
@@ -96,14 +128,23 @@ export default {
     return {
       alerts: [],
       operation: 'SELECT',
-      object: '',
-      fields: []
+      object: 'Contact',
+      fields: [{"id":"6e6f38ea-934e-4f5f-93f9-d1b65074141f","name":"ID","operator":"=","value":"0035a00002m3c3ZAAQ"}],
+      result: [],
+      loading: false,
+      error: null
     };
   },
   mounted(){
     this.updateAlerts();
   },
   methods: {
+    getFields(){
+      let fields = '';
+      this.fields.forEach(e => fields += ',' + e.name);
+      fields = fields.substring(1);
+      return fields;
+    },
     updateAlerts(){
       let newAlerts = [];
 
@@ -185,10 +226,93 @@ export default {
         value: ''
       });
       this.updateAlerts();
-    }
+    },
+    async runCode(){
+
+      this.error = null;
+      this.loading = true;
+      
+      let data = {
+        action: 'run-code',
+        executionId: uuid(),
+        code: this.getAmpscript,
+        timming: true,
+        logs: false
+      }
+      shared.code.executeCode(data)
+      .then((result) => {
+        if (result.status == 'ok'){
+          this.result = JSON.parse(result.result);
+        } else {
+          this.result = [];
+          this.error = result.error;
+        }
+        console.log('Resultado', result);
+        this.loading = false;
+      })
+      .catch(error => {
+        this.error = error;
+        this.loading = false;
+      })
+
+    },
   },
   computed: {
-    
+   
+    getAmpscript(){
+      let code = '';
+      
+      if (this.operation == 'SELECT'){
+        
+        code += '<'+'script runat=\'server\'>';
+        code += 'var result = [];';
+        code += '</'+'script>';
+        code += '%%[';
+        
+        code += 'set @sf = RetrieveSalesforceObjects(';
+        code += '"' + this.object + '",';
+        code += '"' + this.getFields() + '"';
+        this.fields.filter(r => { return r.operator != 'No filter'; }).forEach(e => {
+          code += ',"' + e.name + '"';
+          code += ',"' + e.operator + '"';
+          code += ',"' + e.value + '"';
+        });
+        code += ') ';
+
+        code += 'set @sfCount = RowCount(@sf) ';
+        code += 'if @sfCount > 0 then ';
+        code += 'for @i = 1 to @sfCount do ';
+        code += 'set @sfRow= Row(@sf, @i) ';
+
+        this.fields.forEach(e => {
+          code += 'set @sfField_'+e.name+' = Field(@sfRow, "'+e.name+'") ';
+        });
+
+        code += ']%%';
+        code += '<script runat=\'server\'>';
+        code += 'result.push({';
+
+        this.fields.forEach(e => {
+          code += e.name+': Variable.GetValue("@sfField_'+e.name+'"),';
+        });
+        code = code.substring(0, code.length - 1);
+
+        code += '})';
+        code += '</'+'script>';
+        code += '%%[ next @i endif ]%%';
+        code += '<'+'script runat=\'server\'>';
+        code += 'Platform.Response.Write(Platform.Function.Stringify(result));';
+        code += '</'+'script>';
+
+      } else if (this.operation == 'INSERT'){
+
+      } else if (this.operation == 'UPDATE'){
+
+      }
+      
+     
+      return code;
+    },
   }
 };
 </script>
