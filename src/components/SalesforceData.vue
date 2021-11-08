@@ -75,8 +75,10 @@
                 <div v-if="!this.loading">Run</div>
               </button>
             </div>
-
-            <div class="mb-3 bg-gray card-body card" style="white-space: pre-wrap;">{{ this.getAmpscript }}</div>
+            <div class="mb-3">
+              <button type="button" class="btn btn-link" @click="this.showCode = !this.showCode">Show/Hide Code</button>
+            </div>
+            <div v-if="showCode" class="mb-3 bg-gray card-body card" style="white-space: pre-wrap;">{{ this.getAmpscript }}</div>
 
           </div>
         </div>
@@ -136,7 +138,8 @@ export default {
       ],
       result: [],
       loading: false,
-      error: null
+      error: null,
+      showCode: false
     };
   },
   mounted(){
