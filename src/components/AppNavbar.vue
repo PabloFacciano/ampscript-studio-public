@@ -25,7 +25,7 @@
       <span class="ms-2 dropdown">
         <button type="button" class="btn btn-light sub-button p-1 ms-2 d-flex align-items-center" data-bs-toggle="dropdown">
           <span class="user_name no-wrap-text mx-2">{{ this.user?.user_metadata?.full_name || this.user?.email}}</span>
-          <img alt="Avatar User Photo" v-if="this.user?.user_metadata?.avatar_url != null" class="user_img me-2" :src="this.user?.user_metadata?.avatar_url" />
+          <img v-if="this.user?.user_metadata?.avatar_url != null" class="user_img me-2" :src="this.user?.user_metadata?.avatar_url" />
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li @click="logout">
