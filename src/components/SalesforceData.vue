@@ -112,6 +112,7 @@
                 <div>Loading...</div>
               </div>
             </div>
+            <div v-if="lastRunDate != null && loading == false" class="text-center my-3">{{ 'Code executed at ' + this.lastRunDate.toISOString() }}</div>
           </div>
         </div>
       </div>
@@ -130,16 +131,14 @@ export default {
   data() {
     return {
       alerts: [],
-      operation: 'INSERT',
+      operation: 'SELECT',
       object: 'Contact',
-      fields: [
-        {"id":"6e6f38ea-934e-4f5f-93f9-d1b65074141f","name":"FirstName","operator":"=","value":"PabloTest"},
-        {"id":"6e6f38ea-934e-4f5f-93f9-5464a8s4d648","name":"LastName","operator":"=","value":"PabloTest"}
-      ],
+      fields: [],
       result: [],
       loading: false,
       error: null,
-      showCode: false
+      showCode: false,
+      lastRunDate: null
     };
   },
   mounted(){
@@ -258,10 +257,12 @@ export default {
         }
         console.log('Request.Result', result);
         this.loading = false;
+        this.lastRunDate = new Date();
       })
       .catch(error => {
         this.error = error;
         this.loading = false;
+        this.lastRunDate = new Date();
       })
 
     },
