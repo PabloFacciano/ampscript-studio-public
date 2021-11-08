@@ -86,6 +86,7 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th v-if="this.operation == 'INSERT'" class="text-nowrap">ID</th>
                   <th v-for="(cell,cellIndex) in this.fields" :key="cellIndex">{{ cell.name }}</th>
                 </tr>
               </thead>
@@ -127,9 +128,12 @@ export default {
   data() {
     return {
       alerts: [],
-      operation: 'SELECT',
+      operation: 'INSERT',
       object: 'Contact',
-      fields: [{"id":"6e6f38ea-934e-4f5f-93f9-d1b65074141f","name":"ID","operator":"=","value":"0035a00002m3c3ZAAQ"}],
+      fields: [
+        {"id":"6e6f38ea-934e-4f5f-93f9-d1b65074141f","name":"FirstName","operator":"=","value":"PabloTest"},
+        {"id":"6e6f38ea-934e-4f5f-93f9-5464a8s4d648","name":"LastName","operator":"=","value":"PabloTest"}
+      ],
       result: [],
       loading: false,
       error: null
@@ -202,6 +206,7 @@ export default {
         }
       }
 
+      this.result = [];
       this.alerts = newAlerts;
     },
     changeField(id, field, value){
@@ -239,6 +244,7 @@ export default {
         timming: true,
         logs: false
       }
+      console.log('Request.Body', data);
       shared.code.executeCode(data)
       .then((result) => {
         if (result.status == 'ok'){
@@ -247,7 +253,7 @@ export default {
           this.result = [];
           this.error = result.error;
         }
-        console.log('Resultado', result);
+        console.log('Request.Result', result);
         this.loading = false;
       })
       .catch(error => {
@@ -256,17 +262,15 @@ export default {
       })
 
     },
-  },
-  computed: {
-   
-    getAmpscript(){
+    getAmpscriptCode(operation){
       let code = '';
+    
+      code += '<'+'script runat=\'server\'>';
+      code += 'var result = [];';
+      code += '</'+'script>';
       
-      if (this.operation == 'SELECT'){
+      if (operation == 'SELECT'){
         
-        code += '<'+'script runat=\'server\'>';
-        code += 'var result = [];';
-        code += '</'+'script>';
         code += '%%[';
         
         code += 'set @sf = RetrieveSalesforceObjects(';
@@ -289,7 +293,7 @@ export default {
         });
 
         code += ']%%';
-        code += '<script runat=\'server\'>';
+        code += '<'+'script runat=\'server\'>';
         code += 'result.push({';
 
         this.fields.forEach(e => {
@@ -300,18 +304,62 @@ export default {
         code += '})';
         code += '</'+'script>';
         code += '%%[ next @i endif ]%%';
+
+
+
+      } else if (operation == 'INSERT'){
+
+        code += '%%[ set @sfInsert = CreateSalesforceObject("';
+        code += this.object + '",';
+        code += this.fields.length;
+        this.fields.forEach(e => {
+          code += ',"' + e.name + '"';
+          code += ',"' + e.value + '"';
+        });
+        code += ') ';
+
+        code += 'set @sf = RetrieveSalesforceObjects(';
+        code += '"' + this.object + '","id,' + this.getFields() + '",';
+        code += '"id","=",@sfInsert) ';
+
+        code += 'set @sfCount = RowCount(@sf) ';
+        code += 'if @sfCount > 0 then ';
+        code += 'for @i = 1 to @sfCount do ';
+        code += 'set @sfRow = Row(@sf, @i) ';
+
+        code += 'set @sfField_id = Field(@sfRow, "id") ';
+        this.fields.forEach(e => {
+          code += 'set @sfField_'+e.name+' = Field(@sfRow, "'+e.name+'") ';
+        });
+
+        code += ']%%';
         code += '<'+'script runat=\'server\'>';
-        code += 'Platform.Response.Write(Platform.Function.Stringify(result));';
+        code += 'result.push({';
+
+        code += 'id: Variable.GetValue("@sfField_id"),';
+        this.fields.forEach(e => {
+          code += e.name+': Variable.GetValue("@sfField_'+e.name+'"),';
+        });
+        code = code.substring(0, code.length - 1);
+
+        code += '})';
         code += '</'+'script>';
+        code += '%%[ next @i endif ]%%';
 
-      } else if (this.operation == 'INSERT'){
-
-      } else if (this.operation == 'UPDATE'){
+      } else if (operation == 'UPDATE'){
 
       }
       
-     
+      code += '<'+'script runat=\'server\'>';
+      code += 'Platform.Response.Write(Platform.Function.Stringify(result));';
+      code += '</'+'script>';
+
       return code;
+    },
+  },
+  computed: {
+    getAmpscript(){
+      return this.getAmpscriptCode(this.operation);
     },
   }
 };
