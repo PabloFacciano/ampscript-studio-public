@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Run History
+parent: Functions
 has_children: false
 nav_order: 4
 ---
