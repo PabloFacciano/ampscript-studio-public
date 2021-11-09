@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Settings
-parent: Functions
+parent: Code Editor
+grand_parent: Functions
 nav_order: 1
 has_children: false
 ---
