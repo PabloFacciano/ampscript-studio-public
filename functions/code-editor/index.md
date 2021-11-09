@@ -2,6 +2,7 @@
 layout: default
 title: Code Editor
 nav_order: 3
+parent: Code  Editor
 has_children: true
 ---
 
