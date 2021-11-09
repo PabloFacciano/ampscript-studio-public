@@ -13,13 +13,13 @@ This is where the news of new versions of the application are published.
 
 You can subscribe to updates in [this form](https://forms.gle/U2yqb6ZbuTN52GCs9).
 
-## Next release
-### ~20-11-2021
+## 0.4
+### ~20-11-2021 (next release)
 - Salesforce Data Tab: Update record.
 - TBD
 
 ## 0.3
-### 08-10-2021 ~~05-10-2021~~ 
+### 08-10-2021
 - Home screen redesign.
 - Some UI improvements and bug fixes.
 - Added Salesforce Data Tab: Select and Insert records.
