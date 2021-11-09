@@ -13,7 +13,7 @@ nav_order: 4
 It allows to analyze the execution of the code written in the Code Editor.
 To see all the details, open the execution detail by clicking on the link in the lower panel.
 
-![Run History in Code Editor](https://i.ibb.co/zHyFQWW/image.png)
+![Run History in Code Editor](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/RunHistory.jpg?raw=true)
 
 ## Use cases
 
@@ -55,24 +55,24 @@ Each execution is independent. Therefore the original code, the logs and the res
 ### Original
 This is the view of the original code that was written in the Code Editor.
 
-![View Mode: Original](https://i.ibb.co/XybgqN8/image.png)
+![View Mode: Original](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/run-original.jpg?raw=true)
 
 ### Pre-Compiled
 This is the pre-compiled code. It has the added code for the execution logs to be saved.
 
-![View Mode: Pre-Compiled](https://i.ibb.co/RCQFwFx/image.png)
+![View Mode: Pre-Compiled](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/run-precompiled.jpg?raw=true)
 
 ### Lines Executed
 This is the view of lines of code executed in chronological order. The first line was the first to run and so on.
 
-![View Mode: Lines Executed](https://i.ibb.co/PG308Nn/image.png)
+![View Mode: Lines Executed](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/run-lines.jpg?raw=true)
 
 ### Code Coverage
 This is a mix between the original view and the executed lines view. In green are the lines that were executed at least once. The structure of the code is the same as the original code.
 
-![View Mode: Code Coverage](https://i.ibb.co/1zrHsVP/image.png)
+![View Mode: Code Coverage](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/run-codecoverage.jpg?raw=true)
 
 ### Result
 This is the result of the code. Rendered code is presented in an IFrame for the final view if it is html.
 
-![View Mode: Result](https://i.ibb.co/mFV9yQW/image.png)
+![View Mode: Result](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/run-result.jpg?raw=true)

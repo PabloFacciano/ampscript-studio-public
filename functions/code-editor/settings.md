@@ -54,7 +54,7 @@ The url where the page opens would be like this: `https://yourWorkspaceCloudpage
 
 This allows you to use functions like [RequestParameter()](https://developer.salesforce.com/docs/atlas.en-us.noversion.mc-programmatic-content.meta/mc-programmatic-content/requestparameter.htm) within your code.
 
-![Edit Query Param](https://i.ibb.co/n7QmWtx/image.png)
+![Edit Query Param](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/code-queryparam.jpg?raw=true)
 
 ## Live Preview
 

@@ -13,7 +13,7 @@ has_children: true
 The Code Editor is the main tool of this application.
 It allows you to execute AMPScript or SSJS code, as well as HTML and CSS as if it were an execution of a cloudpage (and it actually is!).
 
-![Code Editor in AMPScript Studio](https://i.ibb.co/qNhbwfM/image.png)
+![Code Editor in AMPScript Studio](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/CodeEditor.jpg?raw=true)
 
 ## Use cases
 
@@ -41,4 +41,4 @@ As it says in [Setup > AMPScript Studio](../../setup/ampscriptstudio#workspaces)
 To change the Workspace where the code is executed, you must select an existing one in the upper right corner, next to the user.
 The following executions of the code will use the chosen environment.
 
-![Change Workspace in Code Editor](https://i.ibb.co/rm8fvrf/image.png)
+![Change Workspace in Code Editor](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/workspace.jpg?raw=true)

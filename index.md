@@ -16,7 +16,7 @@ has_children: false
 
 ---
 
-![AMPScript Studio Home](https://i.ibb.co/txvKkmN/asdf.png)
+![AMPScript Studio Home](https://github.com/PabloFacciano/ampscript-studio-public/blob/gh-pages/img/AMPScript-Studio.jpg?raw=true)
 
 ## Features
 
