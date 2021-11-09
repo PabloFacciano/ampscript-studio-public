@@ -12,7 +12,7 @@ has_children: false
 ### **AMPScript Studio** is a web application that communicates with Salesforce Marketing Cloud, through standard and custom APIs, to streamline tasks normally based on code, **helping to reduce development and testing times**.
 {: .fs-6 .fw-300 .mb-3 }
 
-[Open AMPScript Studio](https://ampscript.netlify.app/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/PabloFacciano/ampscript-studio-public){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Open AMPScript Studio](https://ampscript.netlify.app/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/PabloFacciano/ampscript-studio-public){: .btn .fs-5 .mb-4 .mb-md-0 } [Subscribe to updates](https://forms.gle/U2yqb6ZbuTN52GCs9){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
