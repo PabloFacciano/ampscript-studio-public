@@ -2,8 +2,7 @@
 layout: default
 title: Run History
 has_children: false
-parent: Run History
-grand_parent: Functions
+parent: Functions
 nav_order: 4
 ---
 
