@@ -58,7 +58,7 @@ var ampscriptStudio = {
   doAuth: function(){
     var authToken = Platform.Request.GetRequestHeader('X-API-Key');
     var rows = Platform.Function.LookupRows(this.config.authDE,'Token',authToken);
-    this.continuar = rows.length > 0;
+    this.continuar = rows != undefined && rows.length > 0;
     if (this.continuar == false){
       this.output.error = {
         message: 'Unauthorized cloudpage token.',
@@ -71,14 +71,22 @@ var ampscriptStudio = {
 
   
 Platform.Load("core","1");
-ampscriptStudio.setHeaders();
-ampscriptStudio.doAuth();
-if (ampscriptStudio.continuar){
-  ampscriptStudio.getPostData(); 
-  ampscriptStudio.runCodeEditor();
+try {
+  ampscriptStudio.addTimingRecord('TryCatch Start');
+  ampscriptStudio.setHeaders();
+  ampscriptStudio.doAuth();
+  if (ampscriptStudio.continuar){
+    ampscriptStudio.getPostData(); 
+    ampscriptStudio.runCodeEditor();
+  }
+} catch (e) {
+  ampscriptStudio.output.error = e;
+  ampscriptStudio.output.status = 'error';
+} finally {
+  ampscriptStudio.addTimingRecord('TryCatch End');
+  ampscriptStudio.writeOutput();
 }
-ampscriptStudio.writeOutput();
-
+  
 /*
 -- Expected Request Body:
 {
